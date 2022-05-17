@@ -1,8 +1,15 @@
+// postMessage.js
 import mongoose from 'mongoose';
 
-// const postSchema = mongoose.Schema({
-//
-// })
+const dggerSchema = mongoose.Schema({
+    username: String,
+    omegalul: {
+        type: Number,
+        default: 0
+    },
+});
 
+const DggerEmoteList = mongoose.model('DggerEmoteList', dggerSchema);
 
-// postMessage.js
+export default DggerEmoteList;
+
