@@ -1,20 +1,18 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
     appBar: {
-        borderRadius: 0,
-        margin: '0px 0',
+        position: 'fixed',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'left',
+        justifyContent: 'center',
         alignItems: 'left',
     },
     heading: {
         color: 'rgba(0,183,255, 1)',
-        marginLeft: '24px',
-        textAlign: "right"
     },
     image: {
         marginLeft: '15px',
     },
 }));
+
