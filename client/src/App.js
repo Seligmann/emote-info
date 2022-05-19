@@ -9,7 +9,7 @@ import {
     Box,
     createTheme,
     ThemeProvider,
-    Toolbar
+    Toolbar,
 } from '@material-ui/core';
 
 import Dggers from "./components/Dggers/Dggers";
