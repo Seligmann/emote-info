@@ -1,10 +1,14 @@
 import React from 'react';
-import Dgger from './Dgger/Dgger';
+import { useSelector } from "react-redux";
 
+import Dgger from './Dgger/Dgger';
 import useStyles from './styles';
 
 const Dggers = () => {
+    const dggers = useSelector((state) => state.dggers);
     const classes = useStyles();
+
+    console.log(dggers);
 
     return (
         <>

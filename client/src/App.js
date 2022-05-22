@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Container,
     AppBar,
@@ -11,33 +11,25 @@ import {
     ThemeProvider,
     Toolbar,
 } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 
+import { getDggers } from './actions/dggers';
 import Dggers from "./components/Dggers/Dggers";
 import Form from "./components/Form/Form";
 import burself from './images/burself.png';
 import useStyles from './styles';
 import {CssBaseline} from "@material-ui/core";
 
-const theme = createTheme({
-    overrides: {
-        MuiCssBaseline: {
-            "@global": {
-                body: {
-                    margin: 0
-                }
-            }
-        }
-    }
-})
-
 const App = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getDggers());
+    }, [dispatch])
 
     return (
-        <ThemeProvider theme={theme}>
-
             <Container maxidth="lg">
-
                 <CssBaseline>
                     <AppBar className={classes.appBar} color="inherit" >
                         <Typography className={classes.heading} variant="h2" align="center">frfr ong</Typography>
@@ -50,11 +42,6 @@ const App = () => {
                         <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
                             <Grid item xs={12} sm={7}>
                                 <Dggers />
-                                <Dggers />
-                                <Dggers />
-                                <Dggers />
-                                <Dggers />
-                                <Dggers />
                             </Grid>
                             <Grid item xs={12} sm={4}>
                                 <Form />
@@ -63,7 +50,6 @@ const App = () => {
                     </Container>
                 </Grow>
             </Container>
-        </ThemeProvider>
     );
 }
 
