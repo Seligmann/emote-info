@@ -19,6 +19,7 @@ const Form = () => {
             <form autoComplete="off" noValidate className={classes.form} onSubmit={handleSubmit}>
                 <Typography variant="h6">Search User</Typography>
                 <TextField name="username" variant="outlined" label="Username" fullWidth value={dggerData.username} onChange={(e) => setDggerData({ ... dggerData, username: e.target.value })}/>
+                <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
             </form>
         </Paper>
     );
