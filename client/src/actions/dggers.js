@@ -11,3 +11,14 @@ export const getDggers = () => async (dispatch) => {
         console.log(error.message);
     }
 }
+
+export const createDgger = (dgger) => async (dispatch) => {
+    try {
+        const { data } = await api.createDgger(dgger);
+
+        dispatch({ type: 'CREATE', payload: data });
+    } catch (error) {
+        console.log(error);
+    }
+}
+

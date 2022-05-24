@@ -3,7 +3,7 @@ export default (dggers = [], action) => {
         case 'FETCH_ALL':
             return action.payload;
         case 'CREATE':
-            return dggers;
+            return [... dggers, action.payload];
         default:
             return dggers;
     }
