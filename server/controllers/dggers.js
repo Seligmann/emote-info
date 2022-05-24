@@ -15,6 +15,7 @@ export const createDgger = async (req, res) => {
     const newDgger = new DggerEmoteList(dgger)
 
     try {
+        // console.log(dgger.username);
         await newDgger.save();
         res.status(201).json(newDgger);
     } catch (error) {
