@@ -16,6 +16,10 @@ app.use(cors());
 // Express middleware
 app.use('/dggers', postRoutes);
 
+app.get('/', (req, res) => {
+    res.send('FUCK 2 APACHE');
+});
+
 const PORT = process.env.PORT || 5000;
 
 // Connect to database
