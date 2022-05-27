@@ -1,0 +1,3 @@
+zelig.dev {
+  reverse_proxy localhost:5000
+}
