@@ -22,8 +22,6 @@ const Form = () => {
         // dispatch(updateDgger(dggerData));
     };
 
-
-
     return (
         // <h1>FORM</h1>
         <Paper className={classes.paper}>
