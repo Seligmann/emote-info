@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {TextField, Button, Typography, Paper, ThemeProvider} from '@material-ui/core';
+import {TextField, Button, Typography, Paper } from '@material-ui/core';
 
 import { useDispatch } from "react-redux";
 
@@ -23,7 +23,6 @@ const Form = () => {
     };
 
     return (
-        // <h1>FORM</h1>
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">Search User</Typography>
