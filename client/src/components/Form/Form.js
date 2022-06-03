@@ -9,7 +9,7 @@ import { createDgger } from "../../actions/dggers";
 const Form = () => {
 
     const [dggerData, setDggerData] = useState({
-        username: '', omegalul: 0
+        username: ''
     });
 
     const classes = useStyles();
