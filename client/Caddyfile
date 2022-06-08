@@ -1,4 +1,4 @@
-zelig.dev {
+www.zelig.dev {
 
     handle /* {
         root * /root/projects/dgg-emote-profiles/client/build
@@ -12,13 +12,13 @@ zelig.dev {
 
     header {
         # enable HSTS
-        Strict-Transport-Security max-age=31536000;
+        # Strict-Transport-Security max-age=31536000;
         # disable clients from sniffing the media type
-        X-Content-Type-Options nosniff
+        # X-Content-Type-Options nosniff
     }
 
     log {
-        level info
+        level INFO 
         format console
     }
 }
