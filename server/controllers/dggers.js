@@ -1,5 +1,5 @@
-// handlers for routes (logic)
 import DggerEmoteList from "../models/dggerEmoteList.js";
+import axios from 'axios';
 
 export const getDggers = async (req, res) => {
     try {
@@ -11,14 +11,20 @@ export const getDggers = async (req, res) => {
 }
 
 export const createDgger = async (req, res) => {
-    const dgger = req.body;
+    var dgger = req.body;
+
     const newDgger = new DggerEmoteList(dgger)
 
+    const url = "https://coinmarketcap.com/";
+    axios(url).then((response) => {
+          const html_data = response.data;
+        console.log(html_data);
+    });
+
     try {
-        // console.log(dgger.username);
         await newDgger.save();
         return res.status(201).json(newDgger);
     } catch (error) {
-        return res.status(409).json({ message: error.message() });
+        return res.status(409).json({message: error.message()});
     }
 }
