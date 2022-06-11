@@ -782,7 +782,7 @@ cheerio-select@^2.1.0:
 
 cheerio@^1.0.0-rc.11:
   version "1.0.0-rc.11"
-  resolved "https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.11.tgz"
+  resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-1.0.0-rc.11.tgz#1be84be1a126958366bcc57a11648cd9b30a60c2"
   integrity sha512-bQwNaDIBKID5ts/DsdhxrjqFXYfLw4ste+wMKqWA8DyKcS4qwsPP4Bk8ZNaTJjvpiX/qW3BT4sU7d6Bh5i+dag==
   dependencies:
     cheerio-select "^2.1.0"
