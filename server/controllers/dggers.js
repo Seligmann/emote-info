@@ -1,6 +1,7 @@
 import DggerEmoteList from "../models/dggerEmoteList.js";
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import request from 'request';
 
 class Month {
     static January = new Month("January");
@@ -23,6 +24,7 @@ class Month {
 
 async function getDggerEmoteStats(username, dgger) {
     const url = "https://overrustlelogs.net/Destinygg%20chatlog";
+    var updates = {};
 
     axios(url).then((response) => {
         const $ = cheerio.load(response.data);
@@ -48,11 +50,25 @@ async function getDggerEmoteStats(username, dgger) {
                                     let usernameScraped = yo(usernames[j]).text();
                                     usernameScraped = usernameScraped.substring(0, usernameScraped.length - 7); // remove .txt from name
                                     if (usernameScraped.trim() == username.trim()) {
-                                        console.log("https://overrustlelogs.net/Destinygg%20chatlog/"+validMonth+"%20"+validYear+"/userlogs/" + username + ".txt");
+                                        const txtUrl = url + "/" + validMonth + "%20" + validYear + "/userlogs/" + username + ".txt";
+                                        console.log(txtUrl);
+
+                                        request(txtUrl, (error, response, html) => {
+                                            const messages = html.split(/\r?\n/);
+                                            for (let k = 0; k < messages.length; k++) {
+                                                for (let emote in DggerEmoteList.schema.paths) {
+                                                    if (messages[k].includes(emote)) {
+                                                        updates[emote] += 1;
+                                                    }
+                                                }
+                                            }
+
+                                        });
+
                                         break;
                                     }
                                 }
-                            });
+                            }).catch(error => console.log(error.message));
                             return false;
                         }
                         return true;
@@ -62,7 +78,7 @@ async function getDggerEmoteStats(username, dgger) {
                 return true;
             });
         }
-    });
+    }).catch(error => console.log(error.message));
 }
 
 export const getDggers = async (req, res) => {
@@ -77,6 +93,7 @@ export const getDggers = async (req, res) => {
 export const createDgger = async (req, res) => {
     var dgger = req.body;
     const newDgger = new DggerEmoteList(dgger)
+    getDggerEmoteStats('Ze1ig', dgger);
     try {
         await newDgger.save();
         return res.status(201).json(newDgger);
