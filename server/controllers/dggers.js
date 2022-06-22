@@ -264,7 +264,7 @@ async function getUserEmoteUsage(txtFileUrls, dgger) {
     dgger.OBJECTION = updates['OBJECTION'];
     dgger.OhKrappa = updates['OhKrappa'];
     dgger.OhMyDog = updates['OhMyDog'];
-    dgger.OMEGALUL = updates.OMEGALUL;
+    dgger.OMEGALUL = updates['OMEGALUL'];
     dgger.OOOO = updates['OOOO'];
     dgger.OverRustle = updates['OverRustle'];
     dgger.Painstiny = updates['Painstiny'];
@@ -326,7 +326,7 @@ async function getUserEmoteUsage(txtFileUrls, dgger) {
     dgger.Yoda1 = updates['Yoda1'];
     dgger.ZOOMER = updates['ZOOMER'];
 
-    return new DggerEmoteList(dgger);
+    return dgger;
 }
 
 export const getDggers = async (req, res) => {
@@ -340,11 +340,10 @@ export const getDggers = async (req, res) => {
 
 export const createDgger = async (req, res) => {
     let dgger = req.body;
-    const newDgger = await getValidMonthsYears(dgger, dgger.username);
-
+    await getValidMonthsYears(dgger, dgger.username); // FIXME during testing, change this
+    const newDgger = new DggerEmoteList(dgger);
     try {
         await newDgger.save();
-        newDgger.save();
         return res.status(201).json(newDgger);
     } catch (error) {
         return res.status(409).json({message: error});
