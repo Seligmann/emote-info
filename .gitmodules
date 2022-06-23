@@ -1,0 +1,3 @@
+[submodule "server/overrustlelogs"]
+	path = server/overrustlelogs
+	url = https://github.com/MemeLabs/overrustlelogs
