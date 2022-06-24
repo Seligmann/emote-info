@@ -1,166 +1,79 @@
 import DggerEmoteList from "../models/dggerEmoteList.js";
 import axios from "axios";
-import * as cheerio from "cheerio";
-import fetch from "node-fetch";
 
-class Month {
-  static January = new Month("January");
-  static February = new Month("February");
-  static March = new Month("March");
-  static April = new Month("April");
-  static May = new Month("May");
-  static June = new Month("June");
-  static July = new Month("July");
-  static August = new Month("August");
-  static September = new Month("September");
-  static October = new Month("October");
-  static November = new Month("November");
-  static December = new Month("December");
-
-  constructor(name) {
-    this.name = name;
+async function allMonthsYears() {
+  try {
+    const response = await axios.get(
+      "https://overrustlelogs.net/api/v1/Destinygg/months.json"
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 }
 
-async function getValidMonthsYears(dgger, username) {
-  const url = "https://overrustlelogs.net/Destinygg%20chatlog";
-  const validCombinations = [];
-  const validMonthsInCombination = [];
-  const validYearsInCombination = [];
+async function userLogUrls(allMonthsYears, username) {
+  let userMonthYearUrls = [];
 
-  await axios(url)
-    .then((response) => {
-      const $ = cheerio.load(response.data);
-      const monthsAndYears = $("a");
+  for (let i = 0; i < allMonthsYears.length; i++) {
+    try {
+      const month = allMonthsYears[i].split(" ")[0].trim();
+      const year = allMonthsYears[i].split(" ")[1].trim();
 
-      // Check if each (month,year) scraped is valid, then scrape
-      for (let i = 0; i < monthsAndYears.length; i++) {
-        const monthAndYear = $(monthsAndYears[i]).text();
-        const validMonths = Object.keys(Month);
-        const validYears = [
-          2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022,
-        ];
-        validMonths.every((validMonth) => {
-          if (monthAndYear.includes(validMonth)) {
-            validYears.every((validYear) => {
-              if (monthAndYear.includes(validYear.toString())) {
-                validCombinations.push(
-                  "https://overrustlelogs.net/Destinygg%20chatlog/" +
-                    validMonth +
-                    "%20" +
-                    validYear +
-                    "/userlogs/"
-                );
-                validMonthsInCombination.push(validMonth);
-                validYearsInCombination.push(validYear);
-                console.log(
-                  "https://overrustlelogs.net/Destinygg%20chatlog/" +
-                    validMonth +
-                    "%20" +
-                    validYear +
-                    "/userlogs/"
-                );
-
-                return false;
-              } else {
-                return true;
-              }
-            });
-            return false;
-          } else {
-            return true;
-          }
-        });
-      }
-
-      return getTxtLogFiles(
-        validCombinations,
-        validMonthsInCombination,
-        validYearsInCombination,
-        username,
-        dgger
+      const response = await axios.get(
+        "https://overrustlelogs.net/api/v1/Destinygg" +
+          "/" +
+          month +
+          "%20" +
+          year +
+          "/users.json"
       );
-    })
-    .catch((error) => console.log(error.message));
+
+      // Check if the desired user was active in specific month and year
+      response.data.forEach((tmp) => {
+        const activeUsername = tmp.substring(0, tmp.length - 4);
+        if (username.toLowerCase() === activeUsername.trim().toLowerCase()) {
+          userMonthYearUrls.push(
+            "https://overrustlelogs.net/Destinygg%20chatlog" +
+              "/" +
+              month +
+              "%20" +
+              year +
+              "/" +
+              "userlogs" +
+              "/" +
+              username +
+              ".txt"
+          );
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  return userMonthYearUrls;
 }
 
-async function getTxtLogFiles(
-  validMonthsYearsUrls,
-  validMonths,
-  validYears,
-  username,
-  dgger
-) {
-  console.log("Getting urls to text logs");
-  const txtFiles = [];
-  const baseUrl = "https://overrustlelogs.net/Destinygg%20chatlog";
-  let monthYearIndex = 0;
-  for (let i = 0; i < validMonthsYearsUrls.length; i++) {
-    await axios(validMonthsYearsUrls[i])
-      .then((bruh) => {
-        const yo = cheerio.load(bruh.data);
-        const usernames = yo("a");
+async function userEmoteUsage(userMonthYearUrls, dgger) {
+  let updates = {};
 
-        for (let j = 0; j < usernames.length; j++) {
-          let usernameScraped = yo(usernames[j]).text();
-          usernameScraped = usernameScraped.substring(
-            0,
-            usernameScraped.length - 7
-          ); // remove .txt from name
-          if (
-            usernameScraped.trim().toLowerCase() ===
-            String(username).trim().toLocaleLowerCase()
-          ) {
-            const txtUrl =
-              baseUrl +
-              "/" +
-              validMonths[monthYearIndex] +
-              "%20" +
-              validYears[monthYearIndex] +
-              "/userlogs/" +
-              username +
-              ".txt";
-            monthYearIndex += 1;
-            console.log(txtUrl);
-            txtFiles.push(txtUrl);
+  // Get emote usage
+  for (let i = 0; i < userMonthYearUrls.length; i++) {
+    try {
+      const response = await axios.get(userMonthYearUrls[i]);
+      const messages = response.data.split(/\n/);
 
-            // break;
+      messages.forEach((message) => {
+        for (const emote in DggerEmoteList.schema.paths) {
+          if (message.includes(emote)) {
+            updates[emote] = isNaN(updates[emote]) ? 1 : updates[emote] + 1;
           }
         }
-      })
-      .catch((error) => console.log(error.message));
-  }
-  return getUserEmoteUsage(txtFiles, dgger, username);
-}
-
-async function getUserEmoteUsage(txtFileUrls, dgger) {
-  const updates = {};
-
-  console.log("Fetching logs");
-  const texts = await Promise.all(
-    txtFileUrls.map(async (url) => {
-      // array of strings, strings are n lines
-      const resp = await fetch(url);
-      return resp.text();
-    })
-  );
-
-
-  console.log("Parsing logs");
-  texts.forEach((text) => {
-    const messages = text.split(/\n/);
-    for (const i in messages) {
-      if (!messages[i].toString().includes(dgger.username)) {
-        continue;
-      }
-
-      for (const emote in DggerEmoteList.schema.paths) {
-        if (messages[i].toString().includes(emote)) {
-          updates[emote] = isNaN(updates[emote]) ? 1 : updates[emote] + 1;
-        }
-      }
+      });
+    } catch (error) {
+      console.log(error);
     }
-  });
+  }
 
   dgger.Abathur = updates.Abathur;
   dgger.AMAZIN = updates.AMAZIN;
@@ -378,6 +291,7 @@ async function getUserEmoteUsage(txtFileUrls, dgger) {
   return dgger;
 }
 
+// Controllers
 export const getDggers = async (req, res) => {
   try {
     const dggerEmotes = await DggerEmoteList.find();
@@ -389,7 +303,11 @@ export const getDggers = async (req, res) => {
 
 export const createDgger = async (req, res) => {
   const dgger = req.body;
-  await getValidMonthsYears(dgger, dgger.username);
+
+  const monthsYearsAvailable = await allMonthsYears();
+  const textUrls = await userLogUrls(monthsYearsAvailable, dgger.username);
+  await userEmoteUsage(textUrls, dgger);
+
   const newDgger = new DggerEmoteList(dgger);
   try {
     await newDgger.save();
