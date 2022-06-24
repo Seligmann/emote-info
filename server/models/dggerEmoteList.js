@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import axios from 'axios';
 
 const dggerSchema = mongoose.Schema({
     username: String,
