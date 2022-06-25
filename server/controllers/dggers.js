@@ -63,10 +63,14 @@ async function userEmoteUsage(userMonthYearUrls, dgger) {
       const response = await axios.get(userMonthYearUrls[i]);
       const messages = response.data.split(/\n/);
 
-      messages.forEach((message) => {
+      messages.forEach((tmp) => {
+        const message = tmp.split(/[, ]+/);
         for (const emote in DggerEmoteList.schema.paths) {
-          if (message.includes(emote)) {
-            updates[emote] = isNaN(updates[emote]) ? 1 : updates[emote] + 1;
+          for (const word of message) {
+            if (word === emote) {
+              updates[emote] = isNaN(updates[emote]) ? 1 : updates[emote] + 1;
+              break;
+            }
           }
         }
       });
@@ -303,7 +307,6 @@ export const getDggers = async (req, res) => {
 
 export const createDgger = async (req, res) => {
   const dgger = req.body;
-
   const monthsYearsAvailable = await allMonthsYears();
   const textUrls = await userLogUrls(monthsYearsAvailable, dgger.username);
   await userEmoteUsage(textUrls, dgger);
