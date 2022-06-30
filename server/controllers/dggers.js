@@ -7,7 +7,6 @@ async function allMonthsYears() {
     const response = await axios.get(
       "https://overrustlelogs.net/api/v1/Destinygg/months.json"
     );
-    console.log(response.data[0]);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -72,7 +71,6 @@ async function userEmoteUsage(userMonthYearUrls, username) {
       const messages = response.data.split(/\n/);
       
       messages.forEach((tmp) => {
-        console.log(tmp);
         const message = tmp.split(/[, ]+/);
 
         emotes.forEach(emote => {
@@ -89,49 +87,30 @@ async function userEmoteUsage(userMonthYearUrls, username) {
     }
   }
 
+  // Update db
   const db = new Database('dggers.db', {verbose:console.log});
   for (let emote in updates) {
-    console.log(username, emote, updates[emote]);
-    // const stmt = db.prepare(`INSERT INTO emote_info VALUES (${username}, ${emote}, ${updates[emote]})`);
     const stmt = db.prepare('INSERT INTO emote_info VALUES (?, ?, ?)');
     stmt.run(username, emote, updates[emote]);
 
-    // dgger[key] = updates[key];
   }
-  // return dgger;
 }
 
 // Controllers
 export const getDggers = async (req, res) => {
-  // try {
-  //   const dggerEmotes = await DggerEmoteList.find();
-  //   return res.status(200).json(dggerEmotes);
-  // } catch (error) {
-  //   return res.status(404).json({ message: error.message });
-  // }
+  try {
+    const db = new Database('dggers.db', {verbose : console.log});
+    const dggerEmotes = db.prepare('SELECT * FROM emote_info').all();
+    return res.status(200).json(dggerEmotes);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
 };
 
 export const createDgger = async (req, res) => {
-  // updateDggerTable(await getEmoteList(), db);
-
-  // const dgger = req.body;
-
-  // dgger.username = "Bing";
-  const username = 'Bing';
+  const username = req.body.username;
 
   const monthsYearsAvailable = await allMonthsYears();
   const textUrls = await userLogUrls(monthsYearsAvailable, username);
   await userEmoteUsage(textUrls, username);
-
-  const db = new Database('dggers.db', { verbose: console.log });
-  console.log(db.prepare('SELECT * FROM emote_info').columns());
-  // console.log(db.); // FIXME 
-
-  // const newDgger = new DggerEmoteList(dgger);
-  // try {
-  //   await newDgger.save();
-  //   return res.status(201).json(newDgger);
-  // } catch (error) {
-  //   return res.status(409).json({ message: error });
-  // }
 };
