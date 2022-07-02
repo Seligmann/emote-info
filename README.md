@@ -12,3 +12,10 @@ WIP
 
 # Documentation
 WIP
+
+# TODO
+- temporary README
+- placeholder frontend with proper components
+  - fancy header with algo visualizations
+- store logs in local db
+  - refactor backend for getting logs from local db instead of fetching to ORL
