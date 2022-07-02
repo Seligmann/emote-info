@@ -1,12 +1,20 @@
 import React from 'react';
 import useStyles from './styles';
 
-const Dgger = () => {
+export const Dgger = (props) => {
     const classes = useStyles();
 
-    return (
-        <h1>DGGER</h1>
-    );
-}
+    <tr className="table-row">
+        <td className="table-item">
+            {props.username}
+        </td>
 
-export default Dgger;
+        <td className="table-item">
+            {props.emotes}
+        </td>
+
+        <td className="table-item">
+            {props.uses}
+        </td>
+    </tr>
+}
