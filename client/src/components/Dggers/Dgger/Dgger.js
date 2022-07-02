@@ -1,8 +1,8 @@
 import React from 'react';
 import useStyles from './styles';
 
-export const Dgger = (props) => {
-    const classes = useStyles();
+export const Dgger = (props) => (
+    // const classes = useStyles();
 
     <tr className="table-row">
         <td className="table-item">
@@ -17,4 +17,4 @@ export const Dgger = (props) => {
             {props.uses}
         </td>
     </tr>
-}
+)
