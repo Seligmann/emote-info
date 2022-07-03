@@ -48,10 +48,15 @@ const App = () => {
     }
 
     const handleUserSubmit = () => {
-        if (username.length > 0) {
+        if (username.length > 0 && emotes.length > 0 && uses.length > 0) {
             handleUserCreate();
-            console.info(`User ${username} with the emotes ${emotes} and ${uses}, respectively, added.`);
+            console.info(`User ${username} with the emotes ${emotes} and ${uses} respectively added.`);
         }
+        else if (username.length == undefined || username.length == 0 || username.length == null) {
+            console.log('Invalid username entered.');
+        } else {
+            console.log(`Found no emote usage for ${username}.`);
+        } 
     }
 
     const handleUserCreate = () => {
