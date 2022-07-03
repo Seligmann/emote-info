@@ -25,7 +25,7 @@ export const Dggers = (props) => {
         </thead>
 
         <tbody className='table-body'>
-            {props.dggers.length > 0 ? (
+            {props.dggers?.length > 0 ? (
                 props.dggers.map((dgger) => (
                     <Dgger
                         username={dgger.username}
