@@ -1,12 +1,9 @@
 import React from 'react';
-// import { useSelector } from "react-redux";
 
-// import Dgger from './Dgger/Dgger';
 import { Dgger } from './Dgger/Dgger';
-// import useStyles from './styles';
 
 export const Dggers = (props) => {
-    if (props.loading) return <p>Emote use info is being loaded...</p>
+    if (props.loading) return <p>Emote profile is being loaded...</p>
 
     return (
     <table className="table">

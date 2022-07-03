@@ -1,8 +1,6 @@
 import React from 'react';
-import useStyles from './styles';
 
 export const Dgger = (props) => (
-    // const classes = useStyles();
 
     <tr className="table-row">
         <td className="table-item">

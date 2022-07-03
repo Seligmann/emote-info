@@ -1,21 +1,13 @@
-import React, { useEffect } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import {
     Container,
     AppBar,
     Typography,
-    Grow,
-    Grid,
-    Divider,
-    Box,
-    createTheme,
-    ThemeProvider,
     Toolbar,
 } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
 
-import { getDggers } from './actions/dggers';
-import Dggers from "./components/Dggers/Dggers";
-import Form from "./components/Form/Form";
+import { Dggers } from './components/Dggers/Dggers'
 import burself from './images/burself.png';
 import useStyles from './styles';
 import {CssBaseline} from "@material-ui/core";
@@ -34,8 +26,12 @@ const App = () => {
     }, []);
 
     /*     
-    FIXME should only post entire new user if user isn't in table, update requests to API later on to 
+    TODO
+    
+    - should only post entire new user if user isn't in table, update requests to API later on to 
     get, post for new uesr, and post for existing user.
+    - deletion
+    - editing of current emote info for existing users
     */
     const fetchUsers = async () => { 
         axios
@@ -58,15 +54,10 @@ const App = () => {
     }
 
     const handleUserSubmit = () => {
-        if (username.length > 0 && emotes.length > 0 && uses.length > 0) {
+        if (username.length > 0) {
             handleUserCreate();
-            console.info(`User ${username} with the emotes ${emotes} and ${uses} respectively added.`);
+            console.info(`Fetching emote usage for ${username}.`);
         }
-        else if (username.length == undefined || username.length == 0 || username.length == null) {
-            console.log('Invalid username entered.');
-        } else {
-            console.log(`Found no emote usage for ${username}.`);
-        } 
     }
 
     const handleUserCreate = () => {
@@ -85,23 +76,27 @@ const App = () => {
             <Container maxidth="lg">
                 <CssBaseline>
                     <AppBar className={classes.appBar} color="inherit" >
-                        <Typography className={classes.heading} variant="h2" align="center">frfr ong</Typography>
+                        <Typography className={classes.heading} variant="h2" align="center">Emote Profiler</Typography>
                         <img className={classes.image} src={burself} alt="emotes" height="60"/>
                     </AppBar>
                     <Toolbar />
                 </CssBaseline>
-                <Grow in>
-                    <Container>
-                        <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                            <Grid item xs={12} sm={7}>
-                                <Dggers />
-                            </Grid>
-                            <Grid item xs={12} sm={4}>
-                                <Form />
-                            </Grid>
-                        </Grid>
-                    </Container>
-                </Grow>
+                <div className="user-list-wrapper">
+                {/* form  */}
+                <div className="user-list-form">
+                    <div className="form-wrapper" onSubmit={handleUserSubmit}>
+                      <div className="form-row">
+                        <fieldset>
+                          <label className="form-label" htmlFor="username">Username</label>
+                          <input className="form-input" type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.currentTarget.value)} />
+                        </fieldset>
+                      </div>
+                    </div>
+                    <button onClick={handleUserSubmit} className="btn btn-add">Search</button>
+                  </div>
+
+                  <Dggers users={users} loading={loading} />
+                </div>
             </Container>
     );
 }
