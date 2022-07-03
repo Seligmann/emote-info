@@ -10,7 +10,7 @@ export const Dgger = (props) => (
         </td>
 
         <td className="table-item">
-            {props.emotes}
+            {props.emote}
         </td>
 
         <td className="table-item">

@@ -24,7 +24,7 @@ const App = () => {
     const classes = useStyles();
 
     const [username, setUsername] = useState('');
-    const [emotes, setEmoes] = useState([]);
+    const [emote, setEmotes] = useState([]);
     const [uses, setUses] = useState([]);
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -41,8 +41,16 @@ const App = () => {
         axios
             .get('http://localhost:3000/dggers')
             .then(res => {
-                // Update Dggers state
-                console.log(`fetchEmoteUsage response data: ${res.data}`);
+                let resEmotes = [];
+                let resUses = [];
+
+                res.data.map(row => {
+                    resEmotes.push(row.emote);
+                    resUses.push(row.uses);
+                })
+
+                setEmotes(resEmotes);
+                setUses(resUses);
                 setUsers(res.data);
                 setLoading(false);
             })
