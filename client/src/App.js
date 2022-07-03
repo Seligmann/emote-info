@@ -26,22 +26,24 @@ const App = () => {
     const [username, setUsername] = useState('');
     const [emotes, setEmoes] = useState([]);
     const [uses, setUses] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchEmoteUsages()
+        fetchUsers()
     }, []);
 
     /*     
     FIXME should only post entire new user if user isn't in table, update requests to API later on to 
     get, post for new uesr, and post for existing user.
     */
-    const fetchEmoteUsages = async () => { 
+    const fetchUsers = async () => { 
         axios
             .get('http://localhost:3000/dggers')
             .then(res => {
                 // Update Dggers state
                 console.log(`fetchEmoteUsage response data: ${res.data}`);
-                setDggers(res.data);
+                setUsers(res.data);
                 setLoading(false);
             })
             .catch(error => console.error(`Error while getting dgger list: ${error}`))
@@ -66,7 +68,7 @@ const App = () => {
             })
             .then(res => {
                 console.log(`handleUserCreate response data: ${res.data}`);
-                fetchEmoteUsages();
+                fetchUsers();
             })
             .catch(error => console.error(`Error while creating the user ${username}`))
     }
