@@ -22,7 +22,10 @@ import {CssBaseline} from "@material-ui/core";
 
 const App = () => {
     const classes = useStyles();
-    const dispatch = useDispatch();
+
+    const [username, setUsername] = useState('');
+    const [emotes, setEmoes] = useState([]);
+    const [uses, setUses] = useState([]);
 
     useEffect(() => {
         dispatch(getDggers());
