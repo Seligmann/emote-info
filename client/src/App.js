@@ -1,20 +1,23 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import {
-    Container,
-    AppBar,
-    Typography,
-    Toolbar,
-} from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import * as React from 'react';
+import {Container} from '@material-ui/core';
+import { styled, alpha } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import {CssBaseline} from "@material-ui/core";
 
 import { Dggers } from './components/Dggers/Dggers'
 import burself from './images/burself.png';
-import useStyles from './styles';
-import {CssBaseline} from "@material-ui/core";
+import {Search, SearchIconWrapper, StyledInputBase} from './styles';
 
 const App = () => {
-    const classes = useStyles();
-
     const [username, setUsername] = useState('');
     const [emote, setEmotes] = useState([]);
     const [uses, setUses] = useState([]);
@@ -32,7 +35,15 @@ const App = () => {
     get, post for new uesr, and post for existing user.
     - deletion
     - editing of current emote info for existing users
+    - write better JS
+        - maybe even move to TS once v01 is done
+    - move ORL logs into another local DB
+    - make frontend look nice
+    - default to 0 users showing
+    - default to only the serached user showing upon post request for user
+    - move search bar into mat-ui app bar
     */
+
     const fetchUsers = async () => { 
         axios
             .get('http://localhost:3000/dggers')
@@ -75,10 +86,39 @@ const App = () => {
     return (
             <Container maxidth="lg">
                 <CssBaseline>
-                    <AppBar className={classes.appBar} color="inherit" >
-                        <Typography className={classes.heading} variant="h2" align="center">Emote Profiler</Typography>
-                        <img className={classes.image} src={burself} alt="emotes" height="60"/>
-                    </AppBar>
+                    <Box >
+                      <AppBar position="fixed">
+                        <Toolbar>
+                            <img src={burself} height='60'/>
+                          <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="open drawer"
+                            sx={{ mr: 2 }}
+                          >
+                            {/* insert logo here */}
+                          </IconButton>
+                          <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ display: { xs: 'none', sm: 'block' } }}
+                          >
+                           EmoteZ 
+                          </Typography>
+                          <Search>
+                            <SearchIconWrapper>
+                              <SearchIcon />
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                              placeholder="Search…"
+                              inputProps={{ 'aria-label': 'search' }}
+                            />
+                          </Search>
+                        </Toolbar>
+                      </AppBar>
+                    </Box>
                     <Toolbar />
                 </CssBaseline>
                 <div className="user-list-wrapper">

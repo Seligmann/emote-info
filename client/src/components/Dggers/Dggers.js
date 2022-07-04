@@ -3,7 +3,7 @@ import React from 'react';
 import { Dgger } from './Dgger/Dgger';
 
 export const Dggers = (props) => {
-    if (props.loading) return <p>Emote profile is being loaded...</p>
+    if (props.loading) return <p>Please search for a user, or wait for the profile searched to load...</p>
 
     return (
     <table className="table">
