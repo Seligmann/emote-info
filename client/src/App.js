@@ -14,7 +14,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import {CssBaseline} from "@material-ui/core";
 
 import { Dggers } from './components/Dggers/Dggers'
-import burself from './images/burself.png';
+import dankG from './images/dankG.png';
 import {Search, SearchIconWrapper, StyledInputBase} from './styles';
 
 const App = () => {
@@ -89,16 +89,7 @@ const App = () => {
                     <Box >
                       <AppBar position="fixed">
                         <Toolbar>
-                            <img src={burself} height='60'/>
-                          <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer"
-                            sx={{ mr: 2 }}
-                          >
-                            {/* insert logo here */}
-                          </IconButton>
+                            <img src={dankG} height='55' />
                           <Typography
                             variant="h6"
                             noWrap
@@ -107,15 +98,28 @@ const App = () => {
                           >
                            EmoteZ 
                           </Typography>
-                          <Search>
-                            <SearchIconWrapper>
-                              <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                              placeholder="Search…"
-                              inputProps={{ 'aria-label': 'search' }}
-                            />
-                          </Search>
+                            <Search>
+                              <StyledInputBase
+                                placeholder="Username"
+                                inputProps={{ 'aria-label': 'search' }}
+                                type='text'
+                                id='username'
+                                name='username'
+                                value={username}
+                                onChange={(e) => setUsername(e.currentTarget.value)}
+                              />
+                              <IconButton
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="search"
+                                onClick={handleUserSubmit}
+                              >
+                                <SearchIconWrapper>
+                                  <SearchIcon />
+                                </SearchIconWrapper>
+                              </IconButton>
+                            </Search>
                         </Toolbar>
                       </AppBar>
                     </Box>
@@ -123,7 +127,7 @@ const App = () => {
                 </CssBaseline>
                 <div className="user-list-wrapper">
                 {/* form  */}
-                <div className="user-list-form">
+                {/* <div className="user-list-form">
                     <div className="form-wrapper" onSubmit={handleUserSubmit}>
                       <div className="form-row">
                         <fieldset>
@@ -133,7 +137,7 @@ const App = () => {
                       </div>
                     </div>
                     <button onClick={handleUserSubmit} className="btn btn-add">Search</button>
-                  </div>
+                  </div> */}
 
                   <Dggers users={users} loading={loading} />
                 </div>
