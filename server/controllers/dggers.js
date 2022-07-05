@@ -112,5 +112,5 @@ export const createDgger = async (req, res) => {
 
   const monthsYearsAvailable = await allMonthsYears();
   const textUrls = await userLogUrls(monthsYearsAvailable, username);
-  await userEmoteUsage(textUrls, username);
+  return res.status(200).json(await userEmoteUsage(textUrls, username));
 };
