@@ -18,15 +18,18 @@ import dankG from './images/dankG.png';
 import {Search, SearchIconWrapper, StyledInputBase} from './styles';
 
 const App = () => {
-    const [username, setUsername] = useState('');
-    const [emote, setEmotes] = useState([]);
-    const [uses, setUses] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState("");
+  const [emotes, setEmotes] = useState([]);
+  const [uses, setUses] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({});
+  const [searched, setSearched] = useState(false);
 
-    useEffect(() => {
-        fetchUsers()
-    }, []);
+  useEffect(() => {
+    // fetchUsers()
+    // handleUserCreate()
+  });
 
     /*     
     TODO
@@ -83,66 +86,45 @@ const App = () => {
             .catch(error => console.error(`Error while creating the user ${username}`))
     }
 
-    return (
-            <Container maxidth="lg">
-                <CssBaseline>
-                    <Box >
-                      <AppBar position="fixed">
-                        <Toolbar>
-                            <img src={dankG} height='55' />
-                          <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{ display: { xs: 'none', sm: 'block' } }}
-                          >
-                           EmoteZ 
-                          </Typography>
-                            <Search>
-                              <StyledInputBase
-                                placeholder="Username"
-                                inputProps={{ 'aria-label': 'search' }}
-                                type='text'
-                                id='username'
-                                name='username'
-                                value={username}
-                                onChange={(e) => setUsername(e.currentTarget.value)}
-                              />
-                              <IconButton
-                                size="large"
-                                edge="start"
-                                color="inherit"
-                                aria-label="search"
-                                onClick={handleUserSubmit}
-                              >
-                                <SearchIconWrapper>
-                                  <SearchIcon />
-                                </SearchIconWrapper>
-                              </IconButton>
-                            </Search>
-                        </Toolbar>
-                      </AppBar>
-                    </Box>
-                    <Toolbar />
-                </CssBaseline>
-                <div className="user-list-wrapper">
-                {/* form  */}
-                {/* <div className="user-list-form">
-                    <div className="form-wrapper" onSubmit={handleUserSubmit}>
-                      <div className="form-row">
-                        <fieldset>
-                          <label className="form-label" htmlFor="username">Username</label>
-                          <input className="form-input" type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.currentTarget.value)} />
-                        </fieldset>
-                      </div>
-                    </div>
-                    <button onClick={handleUserSubmit} className="btn btn-add">Search</button>
-                  </div> */}
-
-                  <Dggers users={users} loading={loading} />
-                </div>
-            </Container>
-    );
+  return (
+    <Container maxidth="lg">
+      <CssBaseline>
+        <Box>
+          <AppBar position="fixed">
+            <Toolbar>
+              <img src={dankG} height="55" />
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
+                EmoteZ
+              </Typography>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <form onSubmit={handleUserSubmit}>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ "aria-label": "search" }}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </form>
+              </Search>
+            </Toolbar>
+          </AppBar>
+        </Box>
+        <Toolbar />
+      </CssBaseline>
+      <div className="user-list-wrapper">
+        {/* <Dggers users={users} loading={loading} /> */}
+        <Dggers user={user} searched={searched} loading={loading} />
+      </div>
+    </Container>
+  );
 }
 
 export default App;
