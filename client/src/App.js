@@ -1,21 +1,21 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import * as React from 'react';
-import {Container} from '@material-ui/core';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import {CssBaseline} from "@material-ui/core";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import * as React from "react";
+import { Container } from "@material-ui/core";
+// import { styled, alpha } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+// import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+// import InputBase from "@mui/material/InputBase";
+// import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import { CssBaseline } from "@material-ui/core";
 
-import { Dggers } from './components/Dggers/Dggers'
-import dankG from './images/dankG.png';
-import {Search, SearchIconWrapper, StyledInputBase} from './styles';
+import { Dggers } from "./components/Dggers/Dggers";
+import dankG from "./images/dankG.png";
+import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -31,7 +31,7 @@ const App = () => {
     // handleUserCreate()
   });
 
-    /*     
+  /*     
     TODO
     
     - should only post entire new user if user isn't in table, update requests to API later on to 
@@ -47,44 +47,71 @@ const App = () => {
     - move search bar into mat-ui app bar
     */
 
-    const fetchUsers = async () => { 
-        axios
-            .get('http://localhost:3000/dggers')
-            .then(res => {
-                let resEmotes = [];
-                let resUses = [];
+  const fetchUsers = async () => {
+    // setLoading(true);
+    axios
+      .get("http://localhost:3000/dggers")
+      .then((res) => {
+        let resEmotes = [];
+        let resUses = [];
 
-                res.data.map(row => {
-                    resEmotes.push(row.emote);
-                    resUses.push(row.uses);
-                })
+        res.data.map((row) => {
+          resEmotes.push(row.emote);
+          resUses.push(row.uses);
+        });
 
-                setEmotes(resEmotes);
-                setUses(resUses);
-                setUsers(res.data);
-                setLoading(false);
-            })
-            .catch(error => console.error(`Error while getting dgger list: ${error}`))
+        setEmotes(resEmotes);
+        setUses(resUses);
+        setUsers(res.data);
+      })
+      .catch((error) =>
+        console.error(`Error while getting dgger list: ${error}`)
+      );
+  };
+
+  const fetchUser = async () => {
+    axios
+        .get("http://localhost:3000/dggers/user", {username: username})
+        .then(res => {
+            setUser(res.data);
+        })
+        .catch(error => {
+            console.log(`Error while getting emote profile for ${username}`);
+        })
+  }
+
+  const handleUserSubmit = (e) => {
+    e.preventDefault();
+    if (username.length > 0) {
+      console.log("Submission successful");
+      setSearched(true);
+    //   handleUserCreate(); // FIXME need to decide when and when not to create whole new user
+      fetchUser();
     }
+  };
 
-    const handleUserSubmit = () => {
-        if (username.length > 0) {
-            handleUserCreate();
-            console.info(`Fetching emote usage for ${username}.`);
-        }
-    }
+  const handleUserCreate = () => {
+    console.log(`Creating emote profile for ${username}`);
+    axios
+      .post(
+        "http://localhost:8000/dggers", {username: username})
+      .then((res) => {
+        console.log(`Got emote profile for ${username}`);
+        // Show single user
+        let userRes = {};
 
-    const handleUserCreate = () => {
-        axios
-            .post('http://localhost:3000/dggers', {
-                username: username
-            })
-            .then(res => {
-                console.log(`handleUserCreate response data: ${res.data}`);
-                fetchUsers();
-            })
-            .catch(error => console.error(`Error while creating the user ${username}`))
-    }
+        res.body.map((row) => {
+          userRes[row.emote] = row.uses;
+        });
+
+        setUser(userRes);
+        setSearched(false);
+        console.log("Done");
+      })
+      .catch((error) =>
+        console.error(`Error while creating the user ${username}`)
+      );
+  };
 
   return (
     <Container maxidth="lg">
