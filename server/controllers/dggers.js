@@ -110,8 +110,7 @@ export const getDggers = async (req, res) => {
 export const getDgger = async (req, res) => {
   try {
     const db = new Database('dggers.db', {verbose : console.log});
-    const userEmoteInfo = db.prepare('SELECT * FROM emote_info WHERE username=(?)');
-    userEmoteInfo.run(req.body.username);
+    const userEmoteInfo = db.prepare('SELECT * FROM emote_info WHERE username= ?').all(req.body.username);
     return res.status(200).json(userEmoteInfo);
   } catch(error) {
     return res.status(404).json({message: error.message});

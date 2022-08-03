@@ -71,7 +71,7 @@ const App = () => {
 
   const fetchUser = async () => {
     axios
-        .get("http://localhost:3000/dggers/user", {username: username})
+        .get("http://localhost:8000/dggers/user", {username: username})
         .then(res => {
             setUser(res.data);
         })
@@ -85,7 +85,7 @@ const App = () => {
     if (username.length > 0) {
       console.log("Submission successful");
       setSearched(true);
-    //   handleUserCreate(); // FIXME need to decide when and when not to create whole new user
+      handleUserCreate(); // FIXME need to decide when and when not to create whole new user
       fetchUser();
     }
   };
