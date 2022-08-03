@@ -50,7 +50,7 @@ const App = () => {
   const fetchUsers = async () => {
     // setLoading(true);
     axios
-      .get("http://localhost:3000/dggers")
+      .get("http://localhost:8000/dggers")
       .then((res) => {
         let resEmotes = [];
         let resUses = [];
