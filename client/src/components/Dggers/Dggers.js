@@ -14,7 +14,7 @@ export const Dggers = (props) => {
     <table className="table">
       <thead>
         <tr>
-          {/* <th className="table-head-item">Username</th> */}
+          <th className="table-head-item">Username</th>
 
           <th className="table-head-item">Emotes</th>
 
@@ -23,9 +23,12 @@ export const Dggers = (props) => {
       </thead>
 
       <tbody className="table-body" style={{ textAlign: "center" }}>
-        {props.user?.length > 0 ? (
-          Object.keys(props.user).map((key, i) => (
-            <Dgger emote={key} uses={props.user[key]} />
+        {props.users?.length > 0 ? (
+          Object.keys(props.users).map((key, i) => (
+            <Dgger
+              emote={props.users[key].emote}
+              uses={props.users[key].uses}
+            />
           ))
         ) : (
           <tr className="table-row">
@@ -40,5 +43,5 @@ export const Dggers = (props) => {
         )}
       </tbody>
     </table>
-  )
+  );
 };

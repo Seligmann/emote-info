@@ -23,16 +23,22 @@ const App = () => {
   const [uses, setUses] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState({});
+  const [users, setUsers] = useState({});
   const [searched, setSearched] = useState(false);
 
   useEffect(() => {
-    // fetchUsers()
-    // handleUserCreate()
-  });
+    fetchUser();
+  }, []);
 
   /*     
     TODO
+    - GET for single user
+    -   if user isn't in table, POST for single user, then GET the single user, and display in UI
+
+    - default to 0 users showing
+    - default to only the serached user showing upon post request for user
+
+    - make frontend look nice
     
     - should only post entire new user if user isn't in table, update requests to API later on to 
     get, post for new uesr, and post for existing user.
@@ -70,23 +76,33 @@ const App = () => {
   };
 
   const fetchUser = async () => {
+    console.log(`fetchUser for ${username}`);
+
     axios
-        .get("http://localhost:8000/dggers/user", {username: username})
-        .then(res => {
-            setUser(res.data);
-        })
-        .catch(error => {
-            console.log(`Error while getting emote profile for ${username}`);
-        })
-  }
+      .get(`http://localhost:8000/dggers/user?username=${username}`)
+      .then((res) => {
+        let resEmotes = [];
+        let resUses = [];
+
+        res.data.map((row) => {
+          resEmotes.push(row.emote);
+          resUses.push(row.uses);
+        });
+
+        setUsers(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleUserSubmit = (e) => {
     e.preventDefault();
     if (username.length > 0) {
-      console.log("Submission successful");
+      console.log(`Submission successful for ${username}`);
       setSearched(true);
-      handleUserCreate(); // FIXME need to decide when and when not to create whole new user
-      fetchUser();
+      handleUserCreate();
+      fetchUser(); // FIXME when the response is received, they should be passed to the dgger component
     }
   };
 
@@ -137,11 +153,10 @@ const App = () => {
         <Toolbar />
       </CssBaseline>
       <div className="user-list-wrapper">
-        {/* <Dggers users={users} loading={loading} /> */}
-        <Dggers user={user} searched={searched} loading={loading} />
+        <Dggers users={users} searched={searched} loading={loading} />
       </div>
     </Container>
   );
-}
+};
 
 export default App;
