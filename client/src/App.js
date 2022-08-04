@@ -96,17 +96,7 @@ const App = () => {
       .post(
         "http://localhost:8000/dggers", {username: username})
       .then((res) => {
-        console.log(`Got emote profile for ${username}`);
-        // Show single user
-        let userRes = {};
-
-        res.body.map((row) => {
-          userRes[row.emote] = row.uses;
-        });
-
-        setUser(userRes);
-        setSearched(false);
-        console.log("Done");
+        console.log(`Created emote profile for ${username}`);
       })
       .catch((error) =>
         console.error(`Error while creating the user ${username}`)
