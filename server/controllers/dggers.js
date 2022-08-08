@@ -80,6 +80,17 @@ async function userEmoteUsage(userMonthYearUrls, username) {
 }
 
 // Controllers
+export const removeUser = async (req, res) => {
+	try {
+		let username = req.query.username;
+		const db = new Database("dggers.db", {verbose: console.log});
+		const userInfo = db.prepare("DELETE FROM emote_info WHERE username= (?)").all(username);
+		return res.status(200).json(userInfo);
+	} catch (error) {
+		return res.status(404).json({message: error.message});
+	}
+}
+
 export const getDggers = async (req, res) => {
   try {
     const db = new Database("dggers.db", { verbose: console.log });
