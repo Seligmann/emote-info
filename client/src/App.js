@@ -2,16 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import * as React from "react";
 import { Container } from "@material-ui/core";
-// import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-// import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-// import InputBase from "@mui/material/InputBase";
-// import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { CssBaseline } from "@material-ui/core";
+import {Helmet} from "react-helmet";
 
 import { Dggers } from "./components/Dggers/Dggers";
 import dankG from "./images/dankG.png";
@@ -121,9 +118,12 @@ const App = () => {
 
   return (
     <Container maxidth="lg">
+		<Helmet>
+			<style>{'body { background-color: #363636; color: #ffffff; }'}</style>
+		</Helmet>
       <CssBaseline>
         <Box>
-          <AppBar position="fixed">
+          <AppBar style={{ background: '#3f4042' }} position={"fixed"}>
             <Toolbar>
               <img src={dankG} height="55" />
               <Typography
