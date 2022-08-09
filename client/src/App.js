@@ -8,7 +8,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import { CssBaseline } from "@material-ui/core";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 import { Dggers } from "./components/Dggers/Dggers";
 import dankG from "./images/dankG.png";
@@ -103,11 +103,10 @@ const App = () => {
     }
   };
 
-  const handleUserCreate = () => {
+  const handleUserCreate = async () => {
     console.log(`Creating emote profile for ${username}`);
     axios
-      .post(
-        "http://localhost:8000/dggers", {username: username})
+      .post("http://localhost:8000/dggers", { username: username })
       .then((res) => {
         console.log(`Created emote profile for ${username}`);
       })
@@ -118,14 +117,14 @@ const App = () => {
 
   return (
     <Container maxidth="lg">
-		<Helmet>
-			<style>{'body { background-color: #363636; color: #ffffff; }'}</style>
-		</Helmet>
+      <Helmet>
+        <style>{"body { background-color: #363636; color: #ffffff; }"}</style>
+      </Helmet>
       <CssBaseline>
         <Box>
-          <AppBar style={{ background: '#3f4042' }} position={"fixed"}>
+          <AppBar style={{ background: "#3f4042" }} position={"fixed"}>
             <Toolbar>
-				<img src={dankG} height="55" style={{paddingRight: 10}} />
+              <img src={dankG} height="55" style={{ paddingRight: 10 }} />
               <Typography
                 variant="h6"
                 noWrap
@@ -140,7 +139,7 @@ const App = () => {
                 </SearchIconWrapper>
                 <form onSubmit={handleUserSubmit}>
                   <StyledInputBase
-					style={{color: '#ffffff'}}
+                    style={{ color: "#ffffff" }}
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
                     value={username}
