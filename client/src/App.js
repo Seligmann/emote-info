@@ -125,7 +125,7 @@ const App = () => {
         <Box>
           <AppBar style={{ background: '#3f4042' }} position={"fixed"}>
             <Toolbar>
-              <img src={dankG} height="55" />
+				<img src={dankG} height="55" style={{paddingRight: 10}} />
               <Typography
                 variant="h6"
                 noWrap
@@ -140,6 +140,7 @@ const App = () => {
                 </SearchIconWrapper>
                 <form onSubmit={handleUserSubmit}>
                   <StyledInputBase
+					style={{color: '#ffffff'}}
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
                     value={username}
