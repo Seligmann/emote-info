@@ -1,4 +1,3 @@
-// import {updateDggerTable, getEmoteList} from "../models/dggerEmoteList.js";
 import axios from "axios";
 import Database from "better-sqlite3";
 
