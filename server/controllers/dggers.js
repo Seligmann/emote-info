@@ -120,7 +120,14 @@ export const updateLogs = async (req, res) => {
       messages.forEach((message) => {
         // const message = tmp.split(/[, ]+/);
 
-        // TODO: insert each chat message into db // db.prepare("INSERT INTO logs VALUES (?, ?, ")
+        // FIXME this might be too rough of a filter for usernames
+        const start = message.indexOf(']') + 2;
+        const tmp = message.substring(start);
+        const end = tmp.indexOf(' ');
+        const username = tmp.substring(0, end);
+        console.log(`username found during filling out logs: ${username}`);
+        const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?");
+        stmt.run(year, month, day, username, message); // FIXME might not want to store anything in the message except for the message itself
       });
 
       // change year, month, day
