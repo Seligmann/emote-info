@@ -169,8 +169,8 @@ export const fillLogs = async (req, res) => {
         const end = tmp.indexOf(' ');
         const username = tmp.substring(0, end);
 
-        console.log(`username found during filling out logs: ${username}`);
-        const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?");
+        console.log(`year ${year}, month ${month}, day ${day}, username ${username}, message ${message}`);
+        const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
         stmt.run(year, month, day, username, message); // FIXME might not want to store anything in the message except for the message itself
       });
     }
