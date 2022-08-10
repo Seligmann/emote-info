@@ -188,6 +188,10 @@ export const updateLogs = async (req, res) => {
     let date = req.query.date; // NOTE there might be an issue with conditionals regarding dates being compared if one thing is an int
     // one thing is all lowercase, one thing has one capital letter starting it off, etc... (i dont think this is
     // the case but if something goes terribly wrong.. check)
+    // let timestamp = req.body.timestamp;
+    console.log(req.body.timestamp);
+    let date = new Date(req.body.timestamp);
+    console.log(`date: ${date}`);
     let year = date.getFullYear();
     let month = date.getMonth() + 1; // months are 0-indexed
     let day = date.getDate() - 1; // logs in ORL are stored the day after
@@ -200,13 +204,15 @@ export const updateLogs = async (req, res) => {
       day = [1, 3, 5, 7, 8, 10, 12].includes(month) ? 31 : 30;
     }
 
-    const db = new Database("logs.db", { verbose: console.log });
-    const recentYear = db.prepare("SELECT MAX(year) FROM logs").run();
+    // find date of most recent log in db
+    const db = new Database("dggers.db", { verbose: console.log });
+    const createTable = db.prepare("CREATE TABLE IF NOT EXISTS logs('year' INT, 'month' INT, 'day' INT, 'username' varchar, 'message' varchar)").run();
+    const recentYear = db.prepare("SELECT MAX(year) AS recentYear FROM logs").run();
     const recentMonth = db
-      .prepare("SELECT MAX(month) FROM logs WHERE year=(?)")
+      .prepare("SELECT MAX(month) AS recentMonth FROM logs WHERE year=(?)")
       .run(recentYear);
     const recentDay = db
-      .prepare("SELECT MAX(day) FROM logs WHERE year=(?) AND month=(?)")
+      .prepare("SELECT MAX(day) AS recentDay FROM logs WHERE year=(?) AND month=(?)")
       .run(recentYear, recentMonth);
 
     // is it even possible to hardcode this any more for dgg ... -_-
@@ -252,7 +258,7 @@ export const updateLogs = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(`error while updating logs database: ${error}`);
+    return res.status(404).json({message: error.message});
   }
 };
 
