@@ -12,6 +12,71 @@ async function allMonthsYears() {
   }
 }
 
+async function allTextUrls(monthsYears) {
+  let txtUrls = [];
+
+  for (let i = 0; i < monthsYears.length; i++) {
+    try {
+      let month = monthsYears[i].split(" ")[0].trim();
+      const year = monthsYears[i].split(" ")[1].trim();
+
+      const days = await axios.get(`https://overrustlelogs.net/api/v1/Destinygg/${month} ${year}/days.json`); // [broadcasters.txt, subscribers.txt, 2022-08-02.txt, ...]
+
+
+      days.data.forEach((day) => {
+        let monthCheck;
+        switch (month) {
+          case "January":
+            monthCheck = "01";
+            break;
+          case "February":
+            monthCheck = "02";
+            break;
+          case "March":
+            monthCheck = "03";
+            break;
+          case "April":
+            monthCheck = "04";
+            break;
+          case "May":
+            monthCheck = "05";
+            break;
+          case "June":
+            monthCheck = "06";
+            break;
+          case "July":
+            monthCheck = "07";
+            break;
+          case "August":
+            monthCheck = "08";
+            break;
+          case "September":
+            monthCheck = "09";
+            break;
+          case "October":
+            monthCheck = "10";
+            break;
+          case "November":
+            monthCheck = "11";
+            break;
+          case "December":
+            monthCheck = "12";
+            break;
+        
+          default:
+            break;
+        }
+        if (day.substring(0, 5).includes(year) && day.substring(8).includes(monthCheck)) { // day = 2022-12-31
+          txtUrls.push(`https://overrustlelogs.net/Destinygg%20chatlog/${month} ${year}/${day}`);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  return txtUrls;
+}
+
 async function userLogUrls(allMonthsYears, username) {
   let userMonthYearUrls = [];
 
