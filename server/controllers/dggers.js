@@ -149,7 +149,8 @@ export const fillLogs = async (req, res) => {
     const txtUrls = await allTextUrls(monthsYears);
   
     const db = new Database("dggers.db", {verbose: console.log});
-    const createTable = db.prepare("CREATE TABLE IF NOT EXISTS logs('year' INT, 'month' INT, 'day' INT, 'username' varchar, 'message' varchar)").run();
+    const deleteStmt = db.prepare("DELETE FROM logs").run();
+    const createTable = db.prepare("CREATE TABLE IF NOT EXISTS logs('year' varchar, 'month' varchar, 'day' varchar, 'username' varchar, 'message' varchar)").run();
 
     // put logs in db
     for (let i = 0; i < txtUrls.length; i++) {
@@ -167,7 +168,7 @@ export const fillLogs = async (req, res) => {
         const start = message.indexOf(']') + 2;
         const tmp = message.substring(start);
         const end = tmp.indexOf(' ');
-        const username = tmp.substring(0, end);
+        const username = tmp.substring(0, end - 1);
 
         console.log(`year ${year}, month ${month}, day ${day}, username ${username}, message ${message}`);
         const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
@@ -175,7 +176,7 @@ export const fillLogs = async (req, res) => {
       });
     }
 
-    return res.status(200).json({message: res.message});
+    return res.status(200);
   } catch (error) {
     console.log(error.message);
   }
