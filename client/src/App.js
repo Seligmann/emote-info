@@ -14,6 +14,16 @@ import { Dggers } from "./components/Dggers/Dggers";
 import dankG from "./images/dankG.png";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 
+const timestamp = new Date().getTime();
+
+axios.post("http://localhost:8000/dggers")
+  .then(() => {
+    console.log("Updated logs successfully");
+  })
+  .catch((error) => {
+    console.log(`Error updating logs: ${error}`);
+  });
+
 const App = () => {
   const [username, setUsername] = useState("");
   const [emotes, setEmotes] = useState([]);
