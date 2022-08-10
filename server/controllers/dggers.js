@@ -143,6 +143,45 @@ async function userEmoteUsage(userMonthYearUrls, username) {
   }
 }
 
+export const fillLogs = async (req, res) => {
+  try {
+    const monthsYears = await allMonthsYears();
+    const txtUrls = await allTextUrls(monthsYears);
+  
+    const db = new Database("dggers.db", {verbose: console.log});
+    const createTable = db.prepare("CREATE TABLE IF NOT EXISTS logs('year' INT, 'month' INT, 'day' INT, 'username' varchar, 'message' varchar)").run();
+
+    // put logs in db
+    for (let i = 0; i < txtUrls.length; i++) {
+      console.log(txtUrls[i]);
+      const response = await axios.get(txtUrls[i]);
+      const messages = response.data.split(/\n/);
+      console.log(messages);
+
+      messages.forEach((message) => {
+        // FIXME this might be too rough of a filter for usernames
+        const year = message.substring(1, 5);
+        const month = message.substring(6, 8);
+        const day = message.substring(9, 11);
+
+        const start = message.indexOf(']') + 2;
+        const tmp = message.substring(start);
+        const end = tmp.indexOf(' ');
+        const username = tmp.substring(0, end);
+
+        console.log(`username found during filling out logs: ${username}`);
+        const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?");
+        stmt.run(year, month, day, username, message); // FIXME might not want to store anything in the message except for the message itself
+      });
+    }
+
+    return res.status(200).json({message: res.message});
+  } catch (error) {
+    console.log(error.message);
+  }
+
+}
+
 // Controllers
 export const updateLogs = async (req, res) => {
   try {
