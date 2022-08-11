@@ -143,59 +143,69 @@ async function userEmoteUsage(userMonthYearUrls, username) {
   }
 }
 
-export const fillLogs = async (req, res) => {
-  try {
-    const monthsYears = await allMonthsYears();
-    const txtUrls = await allTextUrls(monthsYears);
+// export const fillLogs = async (req, res) => {
+//   try {
+//     const monthsYears = await allMonthsYears();
+//     const txtUrls = await allTextUrls(monthsYears);
   
-    const db = new Database("dggers.db", {verbose: console.log});
-    const deleteStmt = db.prepare("DELETE FROM logs").run();
-    const createTable = db.prepare("CREATE TABLE IF NOT EXISTS logs('year' varchar, 'month' varchar, 'day' varchar, 'username' varchar, 'message' varchar)").run();
+//     const db = new Database("dggers.db", {verbose: console.log});
+//     const deleteStmt = db.prepare("DELETE FROM logs").run();
+//     const createTable = db.prepare("CREATE TABLE IF NOT EXISTS logs('year' varchar, 'month' varchar, 'day' varchar, 'username' varchar, 'message' varchar)").run();
 
-    // put logs in db
-    for (let i = 0; i < txtUrls.length; i++) {
-      console.log(txtUrls[i]);
-      const response = await axios.get(txtUrls[i]);
-      const messages = response.data.split(/\n/);
-      console.log(messages);
+//     // put logs in db
+//     for (let i = 0; i < txtUrls.length; i++) {
+//       console.log(txtUrls[i]);
+//       const response = await axios.get(txtUrls[i]);
+//       const messages = response.data.split(/\n/);
+//       // console.log(messages);
 
-      messages.forEach((message) => {
-        // FIXME this might be too rough of a filter for usernames
-        const year = message.substring(1, 5);
-        const month = message.substring(6, 8);
-        const day = message.substring(9, 11);
+//       messages.forEach((message) => {
+//         // FIXME this might be too rough of a filter for usernames
+//         const year = message.substring(1, 5);
+//         const month = message.substring(6, 8);
+//         const day = message.substring(9, 11);
 
-        const start = message.indexOf(']') + 2;
-        const tmp = message.substring(start);
-        const end = tmp.indexOf(' ');
-        const username = tmp.substring(0, end - 1);
+//         const start = message.indexOf(']') + 2;
+//         const tmp = message.substring(start);
+//         const end = tmp.indexOf(' ');
+//         const username = tmp.substring(0, end - 1);
 
-        console.log(`year ${year}, month ${month}, day ${day}, username ${username}, message ${message}`);
-        const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
-        stmt.run(year, month, day, username, message); // FIXME might not want to store anything in the message except for the message itself
-      });
-    }
+//         console.log(`year ${year}, month ${month}, day ${day}, username ${username}, message ${message}`);
+//         const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
+//         stmt.run(year, month, day, username, message); // FIXME might not want to store anything in the message except for the message itself
+//       });
+//     }
 
-    return res.status(200);
-  } catch (error) {
-    console.log(error.message);
-  }
+//     return res.status(200);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
 
-}
+// }
 
 // Controllers
 export const updateLogs = async (req, res) => {
   try {
-    let date = req.query.date; // NOTE there might be an issue with conditionals regarding dates being compared if one thing is an int
+    // NOTE there might be an issue with conditionals regarding dates being compared if one thing is an int
     // one thing is all lowercase, one thing has one capital letter starting it off, etc... (i dont think this is
     // the case but if something goes terribly wrong.. check)
     // let timestamp = req.body.timestamp;
-    console.log(req.body.timestamp);
+    // console.log(req.body.timestamp);
     let date = new Date(req.body.timestamp);
-    console.log(`date: ${date}`);
     let year = date.getFullYear();
     let month = date.getMonth() + 1; // months are 0-indexed
     let day = date.getDate() - 1; // logs in ORL are stored the day after
+
+    console.log(`Yesterday's date: ${year}-${month}-${day}`);
+
+    // FIXME objects related to Date are STRINGS (except the timestamp)... compare them to ints properly
+
+    /*
+    FIXME given that fetching logs is done from most recent to oldest, double check that the logic of updating 
+    any misssed logs is correct
+    */
+
+
     if (day === 0) {
       if (month === 1) {
         year -= 1;
@@ -207,16 +217,17 @@ export const updateLogs = async (req, res) => {
 
     // find date of most recent log in db
     const db = new Database("dggers.db", { verbose: console.log });
-    const createTable = db.prepare("CREATE TABLE IF NOT EXISTS logs('year' INT, 'month' INT, 'day' INT, 'username' varchar, 'message' varchar)").run();
-    const recentYear = db.prepare("SELECT MAX(year) AS recentYear FROM logs").run();
+    const recentYear = db.prepare("SELECT MAX(year) FROM logs").get()["MAX(year)"];
     const recentMonth = db
-      .prepare("SELECT MAX(month) AS recentMonth FROM logs WHERE year=(?)")
-      .run(recentYear);
+      .prepare("SELECT MAX(month) FROM logs WHERE year=(?)")
+      .get(recentYear)["MAX(month)"];
     const recentDay = db
-      .prepare("SELECT MAX(day) AS recentDay FROM logs WHERE year=(?) AND month=(?)")
-      .run(recentYear, recentMonth);
+      .prepare("SELECT MAX(day) FROM logs WHERE year=(?) AND month=(?)")
+      .get(recentYear, recentMonth)["MAX(day)"];
 
-    // is it even possible to hardcode this any more for dgg ... -_-
+    console.log(`Most recent log date: ${recentYear}-${recentMonth}-${recentDay}`);
+
+    // Is it even possible to hardcode this any more for dgg ... -_-
     // This is only useful if logs from twitch also have the date for each message (which I would think they would...)
     while (
       !(year === recentYear && month === recentMonth && day === recentDay)
@@ -291,18 +302,17 @@ export const updateLogs = async (req, res) => {
         response = await axios.get(
           `https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-0${month}-0${day}.txt`
         );
+      }
 
       const messages = response.data.split(/\n/);
       messages.forEach((message) => {
-        // const message = tmp.split(/[, ]+/);
-
         // FIXME this might be too rough of a filter for usernames
         const start = message.indexOf(']') + 2;
         const tmp = message.substring(start);
         const end = tmp.indexOf(' ');
         const username = tmp.substring(0, end);
         console.log(`username found during filling out logs: ${username}`);
-        const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?");
+        const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
         stmt.run(year, month, day, username, message); // FIXME might not want to store anything in the message except for the message itself
       });
 
