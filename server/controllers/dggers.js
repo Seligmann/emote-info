@@ -221,11 +221,76 @@ export const updateLogs = async (req, res) => {
     while (
       !(year === recentYear && month === recentMonth && day === recentDay)
     ) {
+      // Add messages to db
+      // NOTE: day and month may need 0 padding before val (e.g. month: 5 and/or day: 2 -> month: 05 and/or day: 02)
 
-      // add messages to db
-      const response = await axios.get(
-        `https://overrustlelogs.net/Destinygg%20chatlog/${month} ${year}/${day}.txt`
-      );
+      let monthCheck;
+      switch (month) {
+        case 1:
+          monthCheck = "January";
+          break;
+        case 2:
+          monthCheck = "February";
+          break;
+        case 3:
+          monthCheck = "March";
+          break;
+        case 4:
+          monthCheck = "April";
+          break;
+        case 5:
+          monthCheck = "May";
+          break;
+        case 6:
+          monthCheck = "June";
+          break;
+        case 7:
+          monthCheck = "July";
+          break;
+        case 8:
+          monthCheck = "August";
+          break;
+        case 9:
+          monthCheck = "September";
+          break;
+        case 10:
+          monthCheck = "October";
+          break;
+        case 11:
+          monthCheck = "November";
+          break;
+        case 12:
+          monthCheck = "December";
+          break;
+        
+        default:
+          console.log("Month was not between 1-12");
+          break;
+      }
+
+      let response;
+      if (parseInt(day / 10) > 0) {
+        console.log(parseInt(day / 10));
+        if (parseInt(month / 10) > 0) {
+          console.log(`https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-${month}-${day}.txt`);
+          response = await axios.get(
+            `https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-${month}-${day}.txt`
+          );
+        }
+        console.log(`https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-0${month}-${day}.txt`);
+        response = await axios.get(
+          `https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-0${month}-${day}.txt`
+        );
+      } else if (parseInt(month / 10) > 0) {
+        console.log(`https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-${month}-0${day}.txt`);
+        response = await axios.get(
+          `https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-${month}-0${day}.txt`
+        );
+      } else {
+        console.log(`https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-0${month}-0${day}.txt`);
+        response = await axios.get(
+          `https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-0${month}-0${day}.txt`
+        );
 
       const messages = response.data.split(/\n/);
       messages.forEach((message) => {
