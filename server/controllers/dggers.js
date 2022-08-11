@@ -64,6 +64,7 @@ async function allTextUrls(monthsYears) {
             break;
         
           default:
+            console.log("Month was not between January-December");
             break;
         }
         if (day.substring(0, 5).includes(year) && day.substring(8).includes(monthCheck)) { // day = 2022-12-31
@@ -85,13 +86,22 @@ async function userLogUrls(allMonthsYears, username) {
       const month = allMonthsYears[i].split(" ")[0].trim();
       const year = allMonthsYears[i].split(" ")[1].trim();
 
-      const response = await axios.get(`https://overrustlelogs.net/api/v1/Destinygg/${month} ${year}/users.json`);
+      console.log(
+        `https://overrustlelogs.net/api/v1/Destinygg/${month} ${year}/users.json`
+      ); // NOTE months and years are parsed in descending order
+
+      const response = await axios.get(
+        `https://overrustlelogs.net/api/v1/Destinygg/${month} ${year}/users.json`
+      );
 
       // Check if the desired user was active in specific month and year
       response.data.forEach((tmp) => {
         const activeUsername = tmp.substring(0, tmp.length - 4);
+
         if (username.toLowerCase() === activeUsername.trim().toLowerCase()) {
-          userMonthYearUrls.push(`https://overrustlelogs.net/Destinygg%20chatlog/${month} ${year}/userlogs/${username}.txt`);
+          userMonthYearUrls.push(
+            `https://overrustlelogs.net/Destinygg%20chatlog/${month} ${year}/userlogs/${username}.txt`
+          );
         }
       });
     } catch (error) {
@@ -332,22 +342,26 @@ export const updateLogs = async (req, res) => {
 
         day = [1, 3, 5, 7, 8, 10, 12].includes(month) ? 31 : 30;
       }
+      console.log(`Next date: ${year}-${month}-${day}`);
     }
+    return res.status(200).json({message: res.message});
   } catch (error) {
     return res.status(404).json({message: error.message});
   }
 };
 
 export const removeUser = async (req, res) => {
-	try {
-		let username = req.query.username;
-		const db = new Database("dggers.db", {verbose: console.log});
-		const userInfo = db.prepare("DELETE FROM emote_info WHERE username= (?)").all(username);
-		return res.status(200).json(userInfo);
-	} catch (error) {
-		return res.status(404).json({message: error.message});
-	}
-}
+  try {
+    let username = req.query.username.toLowerCase();
+    const db = new Database("dggers.db", { verbose: console.log });
+    const userInfo = db
+      .prepare("DELETE FROM emote_info WHERE username= (?)")
+      .run(username);
+    return res.status(200).json(userInfo);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+};
 
 export const getDggers = async (req, res) => {
   try {
