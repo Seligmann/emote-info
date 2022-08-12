@@ -116,7 +116,7 @@ const App = () => {
   const handleUserCreate = async () => {
     console.log(`Creating emote profile for ${username}`);
     axios
-      .post("http://localhost:8000/dggers", { username: username })
+      .post("http://localhost:8000/dggers/user", { username: username })
       .then((res) => {
         console.log(`Created emote profile for ${username}`);
       })
