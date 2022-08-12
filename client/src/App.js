@@ -103,12 +103,14 @@ const App = () => {
       });
   };
 
-  const handleUserSubmit = (e) => {
+  // FIXME right now we're deleting emote_info for user and replacing it with new info... is it a better idea to use UPDATE to just update the user instead?
+  // Note that it isn't promised that the user used a NEW emote from last time. They may have just used the same emotes more. 
+  const handleUserSubmit = async (e) => { 
     e.preventDefault();
     if (username.length > 0) {
       console.log(`Submission successful for ${username}`);
       setSearched(true);
-      handleUserCreate();
+      await handleUserCreate();
       fetchUser(); // FIXME when the response is received, they should be passed to the dgger component
     }
   };
