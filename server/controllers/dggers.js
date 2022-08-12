@@ -112,6 +112,11 @@ async function userLogUrls(allMonthsYears, username) {
 }
 
 async function userEmoteUsage(username) {
+  // delete previous logs before updating FIXME this is probably done faster and/or safer with UPDATE
+  await axios.delete(`http://localhost:8000/dggers/user?username=${username}`)
+    .then((res) => console.log(`Successfully deleted user`))
+    .catch((error) => console.error(error.message));
+
   console.log("Getting emote usage");
   let updates = {};
   let emotes = [];
