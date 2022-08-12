@@ -111,96 +111,47 @@ async function userLogUrls(allMonthsYears, username) {
   return userMonthYearUrls;
 }
 
-async function userEmoteUsage(userMonthYearUrls, username) {
+async function userEmoteUsage(username) {
   console.log("Getting emote usage");
   let updates = {};
   let emotes = [];
+  let emoteImages = new Map();
 
   // Get current list of active emotes on dgg
   const response = await axios.get("https://cdn.destiny.gg/emotes/emotes.json");
+  let asdf = 0;
   response.data.map((emoteInfo) => {
     emotes.push(emoteInfo.prefix);
+    emoteImages.set(emoteInfo.prefix, emoteInfo.image[0].url);
   });
 
   // Get emote usage
-  for (let i = 0; i < userMonthYearUrls.length; i++) {
-    try {
-      const response = await axios.get(userMonthYearUrls[i]);
-      const messages = response.data.split(/\n/);
+  const db = new Database("dggers.db", {verbose: console.log});
+  const messagesFromUser = db.prepare("SELECT message FROM logs WHERE username=(?)").all(username);
 
-      messages.forEach((tmp) => {
-        const message = tmp.split(/[, ]+/);
+  messagesFromUser.forEach((tmp) => {
+    const message = tmp["message"].split(/[, ]+/);
+    emotes.forEach((emote) => { // FIXME this can be made faster w/ a map
+      for (const word of message) {
+        if (word === emote) {
+          updates[emote] = isNaN(updates[emote]) ? 1 : updates[emote] + 1;
+          break;
+        }
+      }
+    })
+  });
 
-        emotes.forEach((emote) => {
-          for (const word of message) {
-            if (word === emote) {
-              updates[emote] = isNaN(updates[emote]) ? 1 : updates[emote] + 1;
-              break;
-            }
-          }
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  // Update db
-  const db = new Database("dggers.db", { verbose: console.log });
+  // Update db w/ emote uses
   for (let emote in updates) {
-    const stmt = db.prepare("INSERT INTO emote_info VALUES (?, ?, ?)");
-    stmt.run(username, emote, updates[emote]);
+    const stmt = db.prepare("INSERT INTO emote_info VALUES (?, ?, ?, ?)");
+    stmt.run(username, emote, updates[emote], emoteImages.get(emote));
   }
 }
 
-// export const fillLogs = async (req, res) => {
-//   try {
-//     const monthsYears = await allMonthsYears();
-//     const txtUrls = await allTextUrls(monthsYears);
-  
-//     const db = new Database("dggers.db", {verbose: console.log});
-//     const deleteStmt = db.prepare("DELETE FROM logs").run();
-//     const createTable = db.prepare("CREATE TABLE IF NOT EXISTS logs('year' varchar, 'month' varchar, 'day' varchar, 'username' varchar, 'message' varchar)").run();
-
-//     // put logs in db
-//     for (let i = 0; i < txtUrls.length; i++) {
-//       console.log(txtUrls[i]);
-//       const response = await axios.get(txtUrls[i]);
-//       const messages = response.data.split(/\n/);
-//       // console.log(messages);
-
-//       messages.forEach((message) => {
-//         // FIXME this might be too rough of a filter for usernames
-//         const year = message.substring(1, 5);
-//         const month = message.substring(6, 8);
-//         const day = message.substring(9, 11);
-
-//         const start = message.indexOf(']') + 2;
-//         const tmp = message.substring(start);
-//         const end = tmp.indexOf(' ');
-//         const username = tmp.substring(0, end - 1);
-
-//         console.log(`year ${year}, month ${month}, day ${day}, username ${username}, message ${message}`);
-//         const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
-//         stmt.run(year, month, day, username, message); // FIXME might not want to store anything in the message except for the message itself
-//       });
-//     }
-
-//     return res.status(200);
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-
-// }
 
 // Controllers
 export const updateLogs = async (req, res) => {
   try {
-    // NOTE there might be an issue with conditionals regarding dates being compared if one thing is an int
-    // one thing is all lowercase, one thing has one capital letter starting it off, etc... (i dont think this is
-    // the case but if something goes terribly wrong.. check)
-    // let timestamp = req.body.timestamp;
-    // console.log(req.body.timestamp);
     let date = new Date(req.body.timestamp);
     let year = date.getFullYear();
     let month = date.getMonth() + 1; // months are 0-indexed
@@ -208,13 +159,10 @@ export const updateLogs = async (req, res) => {
 
     console.log(`Yesterday's date: ${year}-${month}-${day}`);
 
-    // FIXME objects related to Date are STRINGS (except the timestamp)... compare them to ints properly
-
     /*
     FIXME given that fetching logs is done from most recent to oldest, double check that the logic of updating 
     any misssed logs is correct
     */
-
 
     if (day === 0) {
       if (month === 1) {
@@ -237,14 +185,11 @@ export const updateLogs = async (req, res) => {
 
     console.log(`Most recent log date: ${recentYear}-${recentMonth}-${recentDay}`);
 
-    // Is it even possible to hardcode this any more for dgg ... -_-
-    // This is only useful if logs from twitch also have the date for each message (which I would think they would...)
+    // Add messages to db
     while (
       !(year === recentYear && month === recentMonth && day === recentDay)
     ) {
-      // Add messages to db
       // NOTE: day and month may need 0 padding before val (e.g. month: 5 and/or day: 2 -> month: 05 and/or day: 02)
-
       let monthCheck;
       switch (month) {
         case 1:
@@ -293,22 +238,18 @@ export const updateLogs = async (req, res) => {
       if (parseInt(day / 10) > 0) {
         console.log(parseInt(day / 10));
         if (parseInt(month / 10) > 0) {
-          console.log(`https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-${month}-${day}.txt`);
           response = await axios.get(
             `https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-${month}-${day}.txt`
           );
         }
-        console.log(`https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-0${month}-${day}.txt`);
         response = await axios.get(
           `https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-0${month}-${day}.txt`
         );
       } else if (parseInt(month / 10) > 0) {
-        console.log(`https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-${month}-0${day}.txt`);
         response = await axios.get(
           `https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-${month}-0${day}.txt`
         );
       } else {
-        console.log(`https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-0${month}-0${day}.txt`);
         response = await axios.get(
           `https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-0${month}-0${day}.txt`
         );
@@ -316,17 +257,16 @@ export const updateLogs = async (req, res) => {
 
       const messages = response.data.split(/\n/);
       messages.forEach((message) => {
-        // FIXME this might be too rough of a filter for usernames
         const start = message.indexOf(']') + 2;
         const tmp = message.substring(start);
         const end = tmp.indexOf(' ');
         const username = tmp.substring(0, end);
         console.log(`username found during filling out logs: ${username}`);
         const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
-        stmt.run(year, month, day, username, message); // FIXME might not want to store anything in the message except for the message itself
+        stmt.run(year, month, day, username, message);
       });
 
-      // change year, month, day
+      // change year, month, and day before checking if another day is missing from current logs 
       if (day === 1) {
         month -= 1;
 
@@ -388,9 +328,7 @@ export const getDgger = async (req, res) => {
 
 export const createDgger = async (req, res) => {
   const username = req.body.username;
-
-  const monthsYearsAvailable = await allMonthsYears();
-  const textUrls = await userLogUrls(monthsYearsAvailable, username);
-  const emoteUsage = await userEmoteUsage(textUrls, username);
+  const db = new Database("dggers.db", {verbose: console.log});
+  const emoteUsage = await userEmoteUsage(username);
   return res.status(200).json(emoteUsage);
 };
