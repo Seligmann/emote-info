@@ -6,7 +6,8 @@ const router = express.Router();
 router.get('/', getDggers);
 router.get('/user', getDgger);
 router.post('/user', createDgger);
-router.post('/', fillLogs);
+router.post('/', updateLogs);
+// router.post('/', fillLogs);
 router.delete('/user', removeUser);
 
 export default router;
