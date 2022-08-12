@@ -80,6 +80,7 @@ async function allTextUrls(monthsYears) {
 
 async function userLogUrls(allMonthsYears, username) {
   let userMonthYearUrls = [];
+  username = username.toLowerCase();
 
   for (let i = 0; i < allMonthsYears.length; i++) {
     try {
@@ -96,9 +97,9 @@ async function userLogUrls(allMonthsYears, username) {
 
       // Check if the desired user was active in specific month and year
       response.data.forEach((tmp) => {
-        const activeUsername = tmp.substring(0, tmp.length - 4);
+        const activeUsername = tmp.substring(0, tmp.length - 4).toLowerCase();
 
-        if (username.toLowerCase() === activeUsername.trim().toLowerCase()) {
+        if (username === activeUsername.trim()) {
           userMonthYearUrls.push(
             `https://overrustlelogs.net/Destinygg%20chatlog/${month} ${year}/userlogs/${username}.txt`
           );
@@ -116,6 +117,7 @@ async function userEmoteUsage(username) {
   let updates = {};
   let emotes = [];
   let emoteImages = new Map();
+  username = username.toLowerCase();
 
   // Get current list of active emotes on dgg
   const response = await axios.get("https://cdn.destiny.gg/emotes/emotes.json");
@@ -260,7 +262,7 @@ export const updateLogs = async (req, res) => {
         const start = message.indexOf(']') + 2;
         const tmp = message.substring(start);
         const end = tmp.indexOf(' ');
-        const username = tmp.substring(0, end);
+        const username = tmp.substring(0, end).toLowerCase();
         console.log(`username found during filling out logs: ${username}`);
         const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
         stmt.run(year, month, day, username, message);
@@ -293,6 +295,7 @@ export const updateLogs = async (req, res) => {
 export const removeUser = async (req, res) => {
   try {
     let username = req.query.username.toLowerCase();
+    console.log(`Deleting user ${username}`);
     const db = new Database("dggers.db", { verbose: console.log });
     const userInfo = db
       .prepare("DELETE FROM emote_info WHERE username= (?)")
@@ -315,7 +318,7 @@ export const getDggers = async (req, res) => {
 
 export const getDgger = async (req, res) => {
   try {
-    let username = req.query.username;
+    let username = req.query.username.toLowerCase();
     const db = new Database("dggers.db", { verbose: console.log });
     const userEmoteInfo = db
       .prepare("SELECT * FROM emote_info WHERE username= (?) ORDER BY uses DESC")
@@ -326,8 +329,8 @@ export const getDgger = async (req, res) => {
   }
 };
 
-export const createDgger = async (req, res) => {
-  const username = req.body.username;
+export const createDgger = async (req, res) => { 
+  const username = req.body.username.toLowerCase();
   const db = new Database("dggers.db", {verbose: console.log});
   const emoteUsage = await userEmoteUsage(username);
   return res.status(200).json(emoteUsage);
