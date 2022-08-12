@@ -110,14 +110,22 @@ const App = () => {
     if (username.length > 0) {
       console.log(`Submission successful for ${username}`);
       setSearched(true);
+      await handleUserDelete();
       await handleUserCreate();
       fetchUser(); // FIXME when the response is received, they should be passed to the dgger component
     }
   };
 
+  const handleUserDelete = async () => {
+    console.log(`Deleting user ${username}`);
+    await axios.delete(`http://localhost:8000/dggers/user?username=${username}`)
+      .then((res) => console.log(`Deleted user ${username}`))
+      .catch((error) => console.error(error.message));
+  }
+
   const handleUserCreate = async () => {
     console.log(`Creating emote profile for ${username}`);
-    axios
+    await axios
       .post("http://localhost:8000/dggers/user", { username: username })
       .then((res) => {
         console.log(`Created emote profile for ${username}`);
