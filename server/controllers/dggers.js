@@ -318,7 +318,7 @@ export const getDgger = async (req, res) => {
     let username = req.query.username;
     const db = new Database("dggers.db", { verbose: console.log });
     const userEmoteInfo = db
-      .prepare("SELECT * FROM emote_info WHERE username= (?)")
+      .prepare("SELECT * FROM emote_info WHERE username= (?) ORDER BY uses DESC")
       .all(username);
     return res.status(200).json(userEmoteInfo);
   } catch (error) {
