@@ -231,7 +231,7 @@ export const Dggers = (props) => (
             {(String(props.users[key].emote).trim() === "OOOO") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Oooo/></td>)}
             {(String(props.users[key].emote).trim() === "peepoRiot") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><PeepoRiot/></td>)}
             {(String(props.users[key].emote).trim() === "pepeSteer") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><PepeSteer/></td>)}
-            {(String(props.users[key].emote).trim() === "pepeSteer") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><RaveDoge/></td>)}
+            {(String(props.users[key].emote).trim() === "RaveDoge") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><RaveDoge/></td>)}
             {(String(props.users[key].emote).trim() === "Shrugstiny") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Shrugstiny/></td>)}
             {(String(props.users[key].emote).trim() === "MALARKEY") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Malarkey/></td>)}
             {(String(props.users[key].emote).trim() === "Klappa") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Klappa/></td>)}
