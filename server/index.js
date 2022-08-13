@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-// import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
@@ -23,6 +22,6 @@ app.listen(HTTP_PORT, () => {
 });
 
 // Default response for any other request
-app.use(function(req, res){
+app.use(function(req, res) {
     res.status(404);
 });
