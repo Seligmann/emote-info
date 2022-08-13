@@ -62,7 +62,7 @@ export const Oooo = styled.div`
   height: 28px;
   width: 29px;
   background: url("https://cdn.destiny.gg/2.45.2/emotes/5e75f1c3a21a1.png") 0px 0px;
-  animation: ${animationWooYeah} 1.8s steps(21) infinite; 
+  animation: ${animationOooo} 1.8s steps(21) infinite; 
 `;
 
 
