@@ -65,7 +65,18 @@ export const Oooo = styled.div`
   animation: ${animationWooYeah} 1.8s steps(21) infinite; 
 `;
 
-const sprites = ["catJAM", "FiveHead", "SMASHit", "OOOO", "WOOF", "WooYeah"];
+
+const animationPeepoRiot = keyframes`
+  100% { background-position: -280px; }
+`;
+export const PeepoRiot = styled.div`
+  height: 32px;
+  width: 35px;
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e9a25016d376.png") 0px 0px;
+  animation: ${animationPeepoRiot} 1s steps(8) infinite; 
+`;
+
+const sprites = ["catJAM", "FiveHead", "SMASHit", "OOOO", "peepoRiot", "WOOF", "WooYeah"];
 
 export const Dggers = (props) => (
   <table style={{width: "300px"}}>
@@ -109,6 +120,7 @@ export const Dggers = (props) => (
             {(String(props.users[key].emote).trim() === "WOOF") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Woof/></td>)}
             {(String(props.users[key].emote).trim() === "WooYeah") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><WooYeah/></td>)}
             {(String(props.users[key].emote).trim() === "OOOO") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Oooo/></td>)}
+            {(String(props.users[key].emote).trim() === "peepoRiot") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><PeepoRiot/></td>)}
             {!sprites.includes(String(props.users[key].emote).trim()) && (<td><img src={props.users[key].emote_image}></img></td>)}
 
             <td>{props.users[key].emote}</td>
