@@ -1,4 +1,16 @@
 import React from "react";
+import styled, {keyframes} from 'styled-components';
+
+const animationFiveHead = keyframes`
+  100% { background-position: -1020px; }
+`;
+export const FiveHead = styled.div`
+  height: 34px;
+  width: 30px;
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fa1f1d6e4f61.png") 0px 0px;
+  animation: ${animationFiveHead} 1.8s steps(34) infinite; 
+`;
+
 
 export const Dggers = (props) => (
   <table style={{width: "300px"}}>
@@ -26,6 +38,7 @@ export const Dggers = (props) => (
 
     <thead>
       <tr>
+        <th></th>
         <th>Emotes</th>
         <th>Count</th>
       </tr>
@@ -35,9 +48,14 @@ export const Dggers = (props) => (
       {props.users?.length > 0 ? (
         Object.keys(props.users).map((key, i) => (
           <tr>
-            <td>
-              <img src={props.users[key].emote_image}></img>
-            </td>
+            {(String(props.users[key].emote).trim() === "FiveHead") ? 
+              (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><FiveHead/></td>)
+              : 
+              (<td>
+                <img src={props.users[key].emote_image}></img>
+              </td>)
+            }
+
             <td>{props.users[key].emote}</td>
             <td>{props.users[key].uses}</td>
           </tr>
