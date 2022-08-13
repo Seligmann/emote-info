@@ -29,6 +29,7 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.16",
     "puppeteer": "^14.3.0",
+    "react-helmet": "^6.1.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "sql.js": "^1.7.0"
