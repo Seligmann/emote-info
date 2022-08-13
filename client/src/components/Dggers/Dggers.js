@@ -117,7 +117,7 @@ export const Shrugstiny = styled.div`
 `;
 
 const animationKlappa = keyframes`
-  100% { background-position: -64px; }
+  100% { background-position: -76px; }
 `;
 export const Klappa = styled.div`
   height: 30px;
