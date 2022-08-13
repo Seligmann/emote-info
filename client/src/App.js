@@ -14,21 +14,19 @@ import { Dggers } from "./components/Dggers/Dggers";
 import dankG from "./images/dankG.png";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 
-const timestamp = new Date().getTime();
+// const timestamp = new Date().getTime();
+// console.log(timestamp);
 
-axios.post("http://localhost:8000/dggers")
-  .then(() => {
-    console.log("Updated logs successfully");
-  })
-  .catch((error) => {
-    console.log(`Error updating logs: ${error}`);
-  });
+// axios.post("http://localhost:8000/dggers", {timestamp: timestamp})
+//   .then(() => {
+//     console.log("Updated logs successfully");
+//   })
+//   .catch((error) => {
+//     console.log(`Error updating logs: ${error}`);
+//   });
 
 const App = () => {
   const [username, setUsername] = useState("");
-  const [emotes, setEmotes] = useState([]);
-  const [uses, setUses] = useState([]);
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState({});
   const [searched, setSearched] = useState(false);
@@ -37,31 +35,7 @@ const App = () => {
     fetchUser();
   }, []);
 
-  /*     
-    TODO
-    - GET for single user
-    -   if user isn't in table, POST for single user, then GET the single user, and display in UI
-
-    - default to 0 users showing
-    - default to only the serached user showing upon post request for user
-
-    - make frontend look nice
-    
-    - should only post entire new user if user isn't in table, update requests to API later on to 
-    get, post for new uesr, and post for existing user.
-    - deletion
-    - editing of current emote info for existing users
-    - write better JS
-        - maybe even move to TS once v01 is done
-    - move ORL logs into another local DB
-    - make frontend look nice
-    - default to 0 users showing
-    - default to only the serached user showing upon post request for user
-    - move search bar into mat-ui app bar
-    */
-
   const fetchUsers = async () => {
-    // setLoading(true);
     axios
       .get("http://localhost:8000/dggers")
       .then((res) => {
@@ -73,8 +47,6 @@ const App = () => {
           resUses.push(row.uses);
         });
 
-        setEmotes(resEmotes);
-        setUses(resUses);
         setUsers(res.data);
       })
       .catch((error) =>
