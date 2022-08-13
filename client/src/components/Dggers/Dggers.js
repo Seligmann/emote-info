@@ -185,7 +185,7 @@ export const CuckCrab = styled.div`
   background: url("https://cdn.destiny.gg/2.45.2/emotes/5fc5b4b8d0924.png") 0px 0px;
   animation: ${animationCuckCrab} 3s steps(92) infinite; 
 `;
-const sprites = ["CuckCrab", "Clap", "BINGQILIN", "BERN", "Askers", "Klappa", "MALARKEY", "Shrugstiny", "RaveDoge", "catJAM", "pepeSteer", "FiveHead", "SMASHit", "OOOO", "peepoRiot", "WOOF", "WooYeah"];
+const sprites = ["MiyanoHype", "CuckCrab", "Clap", "BINGQILIN", "BERN", "Askers", "Klappa", "MALARKEY", "Shrugstiny", "RaveDoge", "catJAM", "pepeSteer", "FiveHead", "SMASHit", "OOOO", "peepoRiot", "WOOF", "WooYeah"];
 
 export const Dggers = (props) => (
   <table style={{width: "300px"}}>
