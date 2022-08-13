@@ -11,6 +11,17 @@ export const FiveHead = styled.div`
   animation: ${animationFiveHead} 1.8s steps(34) infinite; 
 `;
 
+const animationCatJam = keyframes`
+  100% { background-position: -7144px; }
+`;
+export const CatJam = styled.div`
+  height: 30px;
+  width: 30px;
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5f9325d81e730.png") 0px 0px;
+  animation: ${animationCatJam} 7s steps(188) infinite; 
+`;
+
+const sprites = ["catJAM", "FiveHead"];
 
 export const Dggers = (props) => (
   <table style={{width: "300px"}}>
@@ -48,13 +59,9 @@ export const Dggers = (props) => (
       {props.users?.length > 0 ? (
         Object.keys(props.users).map((key, i) => (
           <tr>
-            {(String(props.users[key].emote).trim() === "FiveHead") ? 
-              (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><FiveHead/></td>)
-              : 
-              (<td>
-                <img src={props.users[key].emote_image}></img>
-              </td>)
-            }
+            {(String(props.users[key].emote).trim() === "FiveHead") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><FiveHead/></td>)}
+            {(String(props.users[key].emote).trim() === "catJAM") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><CatJam/></td>)}
+            {!sprites.includes(String(props.users[key].emote).trim()) && (<td><img src={props.users[key].emote_image}></img></td>)}
 
             <td>{props.users[key].emote}</td>
             <td>{props.users[key].uses}</td>
