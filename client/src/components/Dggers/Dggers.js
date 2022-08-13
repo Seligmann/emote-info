@@ -126,6 +126,17 @@ export const Klappa = styled.div`
   animation: ${animationKlappa} 1s steps(2) infinite; 
 `;
 
+const animationMiyanoHype = keyframes`
+  100% { background-position: -320px; }
+`;
+export const MiyanoHype = styled.div`
+  height: 32px;
+  width: 32px;
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/61574db3e31e6.png") 0px 0px;
+  animation: ${animationMiyanoHype} 1s steps(10) infinite; 
+`;
+
+
 const sprites = ["Klappa", "MALARKEY", "Shrugstiny", "RaveDoge", "catJAM", "pepeSteer", "FiveHead", "SMASHit", "OOOO", "peepoRiot", "WOOF", "WooYeah"];
 
 export const Dggers = (props) => (
@@ -176,6 +187,7 @@ export const Dggers = (props) => (
             {(String(props.users[key].emote).trim() === "Shrugstiny") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Shrugstiny/></td>)}
             {(String(props.users[key].emote).trim() === "MALARKEY") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Malarkey/></td>)}
             {(String(props.users[key].emote).trim() === "Klappa") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Klappa/></td>)}
+            {(String(props.users[key].emote).trim() === "MiyanoHype") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><MiyanoHype/></td>)}
             {!sprites.includes(String(props.users[key].emote).trim()) && (<td><img src={props.users[key].emote_image}></img></td>)}
 
             <td>{props.users[key].emote}</td>
