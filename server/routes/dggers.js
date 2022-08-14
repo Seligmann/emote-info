@@ -1,13 +1,14 @@
 import express from 'express';
 import { removeUser, getDggers, createDgger, getDgger, updateLogs, fillLogs } from '../controllers/dggers.js'
+import cors from 'cors';
 
 const router = express.Router();
 
-router.get('/', getDggers);
-router.get('/user', getDgger);
-router.post('/user', createDgger);
-router.post('/', updateLogs);
+router.get('/', cors(), getDggers);
+router.get('/user', cors(), getDgger);
+router.post('/user', cors(), createDgger);
+router.post('/', cors(), updateLogs);
 // router.post('/', fillLogs);
-router.delete('/user', removeUser);
+router.delete('/user', cors(), removeUser);
 
 export default router;
