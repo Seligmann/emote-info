@@ -1,5 +1,7 @@
 import React from "react";
 import styled, {keyframes} from 'styled-components';
+import prayge from '../../images/prayge.png';
+import catJam from '../../images/catJam.gif';
 
 // FIXME create db of emotes so that i can easily reference each emote and it's info (like image url)
 
