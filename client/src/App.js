@@ -81,10 +81,17 @@ const App = () => {
     e.preventDefault();
     if (username.length > 0) {
       console.log(`Submission successful for ${username}`);
+
+			if (searched && users?.length > 0) {
+				setUsers({});
+			}
+
       setSearched(true);
+			setLoading(true);
       await handleUserDelete();
       await handleUserCreate();
-      fetchUser(); // FIXME when the response is received, they should be passed to the dgger component
+      fetchUser();
+			setLoading(false);
     }
   };
 
