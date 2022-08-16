@@ -67,7 +67,8 @@ async function allTextUrls(monthsYears) {
             console.log("Month was not between January-December");
             break;
         }
-        if (day.substring(0, 5).includes(year) && day.substring(8).includes(monthCheck)) { // day = 2022-12-31
+
+        if (day.substring(0, 4).includes(year) && day.substring(5, 7).includes(monthCheck)) { // day = 2022-12-31
           txtUrls.push(`https://overrustlelogs.net/Destinygg%20chatlog/${month} ${year}/${day}`);
         }
       });
