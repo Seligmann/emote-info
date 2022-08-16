@@ -322,7 +322,7 @@ export const getDgger = async (req, res) => {
     let username = req.query.username.toLowerCase();
     const db = new Database("dggers.db", { verbose: console.log });
     const userEmoteInfo = db
-      .prepare("SELECT * FROM emote_info WHERE username= (?) ORDER BY uses DESC")
+      .prepare("SELECT * FROM emote_info WHERE username=(?) ORDER BY uses DESC")
       .all(username);
     return res.status(200).json(userEmoteInfo);
   } catch (error) {
@@ -340,20 +340,16 @@ export const createDgger = async (req, res) => {
 export const fillLogs = async (req, res) => {
   const db = new Database("dggers.db", {verbose: console.log});
   db.prepare("DROP TABLE logs").run();
+  db.prepare("CREATE TABLE IF NOT EXISTS logs('year' INT, 'month' INT, 'day' INT, 'username' varchar, 'message' varchar)").run();
 
   try {
     const monthsYears = await allMonthsYears();
     const txtUrls = await allTextUrls(monthsYears);
 
-    db.prepare("CREATE TABLE IF NOT EXISTS logs('year' INT, 'month' INT, 'day' INT, 'username' varchar, 'message' varchar)").run();
+		const insert = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
 
-    // put logs in db
-    for (let i = 0; i < txtUrls.length; i++) {
-      const response = await axios.get(txtUrls[i]);
-      const messages = response.data.split(/\n/);
-
-      console.log(`Getting logs at ${txtUrls[i]}`);
-      messages.forEach((message) => {
+		const insertMany = db.transaction((messages) => {
+			messages.forEach((message) => {
         const year = message.substring(1, 5);
         const month = message.substring(6, 8);
         const day = message.substring(9, 11);
@@ -363,10 +359,18 @@ export const fillLogs = async (req, res) => {
         const end = tmp.indexOf(' ');
         const username = tmp.substring(0, end - 1).toLowerCase();
 
-        const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
-        stmt.run(year, month, day, username, message); // FIXME might not want to store anything in the message except for the message itself
-      });
-    }
+        // const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
+        insert.run(year, month, day, username, message); // FIXME might not want to store anything in the message except for the message itself
+			});
+		})
+
+    for (let i = 0; i < txtUrls.length; i++) {
+			console.log(txtUrls[i]);
+      const response = await axios.get(txtUrls[i]);
+      const messages = response.data.split(/\n/);
+
+			insertMany(messages);
+		}
 
     return res.status(200).json({message: res.message});
   } catch (error) {
