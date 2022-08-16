@@ -64,7 +64,7 @@ export const Oooo = styled.div`
   height: 28px;
   width: 29px;
   background: url("https://cdn.destiny.gg/2.45.2/emotes/5e75f1c3a21a1.png") 0px 0px;
-  animation: ${animationOooo} 1.8s steps(21) infinite; 
+  animation: ${animationOooo} 1.4s steps(21) infinite; 
 `;
 
 
@@ -85,7 +85,7 @@ export const PepeSteer = styled.div`
   height: 30px;
   width: 30px;
   background: url("https://cdn.destiny.gg/2.45.2/emotes/5fc5c2f5071e9.png") 0px 0px;
-  animation: ${animationPepeSteer} 1.5s steps(24) infinite; 
+  animation: ${animationPepeSteer} 1.2s steps(24) infinite; 
 `;
 
 const animationRaveDoge = keyframes`
@@ -187,6 +187,7 @@ export const CuckCrab = styled.div`
   background: url("https://cdn.destiny.gg/2.45.2/emotes/5fc5b4b8d0924.png") 0px 0px;
   animation: ${animationCuckCrab} 3s steps(92) infinite; 
 `;
+
 const sprites = ["MiyanoHype", "CuckCrab", "Clap", "BINGQILIN", "BERN", "Askers", "Klappa", "MALARKEY", "Shrugstiny", "RaveDoge", "catJAM", "pepeSteer", "FiveHead", "SMASHit", "OOOO", "peepoRiot", "WOOF", "WooYeah"];
 
 export const Dggers = (props) => (
