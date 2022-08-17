@@ -1,6 +1,7 @@
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 
+// FIXME I used mui here for styling, but styled-components in Dggers.js
 
 export const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -9,10 +10,13 @@ export const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+  [theme.breakpoints.down("sm")]: {
+    marginLeft: theme.spacing(2),
     width: "auto",
   },
 }));
@@ -28,7 +32,6 @@ export const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  // color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon

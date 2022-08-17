@@ -1,3 +1,27 @@
+
+/*     
+TODO
+
+Needed
+------
+- rewrite to get user emote stats from DB
+- add emote images
+- sort lists in descending order
+- don't GET user info until it's been checked if the user needs to be UPDATEd or POSTed
+- add list for the users top emotes for the current month
+
+- move ORL logs into another local DB
+- this codebase is terrible to read even though i'm the one who wrote it... fix this ... 
+*/
+
+/*
+FIXME
+- Users (sometimes?...) can't be re-searched in the same session *thinking* . Make sure that if there are props that exist and there are new props coming in, that the previous props have 
+  been deleted so that the component knows that it's been changed even if its searching a user that was previously searched in the same session.
+- As a username is being typed in, there is background processing that is slowing stuff down. Check how often props are being updated (see how to only process props on submit. I
+  think they're being updated on change...)
+- some indentation is 2 spaces, some is 4 spaces, i love switching to vim :)
+*/
 import axios from "axios";
 import { useEffect, useState } from "react";
 import * as React from "react";
@@ -118,9 +142,7 @@ const App = () => {
               <img id="logo" src={dankG} style={{ paddingRight: 10 }} alt=""/>
               <Typography
                 variant="h6"
-                noWrap
                 component="div"
-                sx={{ display: { sm: "block" } }}
               >
                 EmoteZ
               </Typography>
