@@ -120,7 +120,7 @@ const App = () => {
                 variant="h6"
                 noWrap
                 component="div"
-                sx={{ display: { xs: "none", sm: "block" } }}
+                sx={{ display: { sm: "block" } }}
               >
                 EmoteZ
               </Typography>
