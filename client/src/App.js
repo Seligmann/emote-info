@@ -166,7 +166,6 @@ const App = () => {
         </Box>
         <Toolbar />
       </CssBaseline>
-      <div style={{position: "left", width: "15%", position: "absolute", top: "69px", left: "20px"}}><strong>NOTE: Please search your username with a ":" (e.g. myusername:), as a current database is under maintenance.</strong></div>
       <div className="user-list-wrapper">
         <Dggers users={users} searched={searched} loading={loading} />
       </div>
