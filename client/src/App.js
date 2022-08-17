@@ -41,7 +41,7 @@ import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 // const timestamp = new Date().getTime();
 // console.log(timestamp);
 
-// axios.post("http://localhost:8000/dggers", {timestamp: timestamp})
+// axios.post("https://www.zelig.dev/dggers", {timestamp: timestamp})
 //   .then(() => {
 //     console.log("Updated logs successfully");
 //   })
@@ -61,7 +61,7 @@ const App = () => {
 
   const fetchUsers = async () => {
     axios
-      .get("http://localhost:8000/dggers")
+      .get("https://www.zelig.dev/dggers")
       .then((res) => {
         let resEmotes = [];
         let resUses = [];
@@ -82,8 +82,9 @@ const App = () => {
     console.log(`fetchUser for ${username}`);
 
     axios
-      .get(`http://localhost:8000/dggers/user?username=${username}`)
+      .get(`https://www.zelig.dev/dggers/user?username=${username}`)
       .then((res) => {
+
         setUsers(res.data);
       })
       .catch((error) => {
@@ -113,7 +114,7 @@ const App = () => {
 
   const handleUserDelete = async () => {
     console.log(`Deleting user ${username}`);
-    await axios.delete(`http://localhost:8000/dggers/user?username=${username}`)
+    await axios.delete(`https://www.zelig.dev/dggers/user?username=${username}`)
       .then((res) => console.log(`Deleted user ${username}`))
       .catch((error) => console.error(error.message));
   }
@@ -121,7 +122,7 @@ const App = () => {
   const handleUserCreate = async () => {
     console.log(`Creating emote profile for ${username}`);
     await axios
-      .post("http://localhost:8000/dggers/user", { username: username })
+      .post("https://www.zelig.dev/dggers/user", { username: username })
       .then((res) => {
         console.log(`Created emote profile for ${username}`);
       })
@@ -165,6 +166,7 @@ const App = () => {
         </Box>
         <Toolbar />
       </CssBaseline>
+      <div style={{position: "left", width: "15%", position: "absolute", top: "69px", left: "20px"}}><strong>NOTE: Please search your username with a ":" (e.g. myusername:), as a current database is under maintenance.</strong></div>
       <div className="user-list-wrapper">
         <Dggers users={users} searched={searched} loading={loading} />
       </div>

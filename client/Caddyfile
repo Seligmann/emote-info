@@ -7,14 +7,17 @@ www.zelig.dev {
         }
 
         handle /dggers {
-                reverse_proxy localhost:5000
+                reverse_proxy 127.0.0.1:3000
         }
-
+        
+        handle /dggers/user {
+                reverse_proxy 127.0.0.1:3000
+        }
+        
         log {
                 level debug
                 output file /root/projects/dgg-emote-profiles/client/caddy_test.log
         }
-
 
 }
 
