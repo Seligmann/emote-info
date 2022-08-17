@@ -122,7 +122,7 @@ async function userEmoteUsage(username) {
 
   // Get current list of active emotes on dgg
   const response = await axios.get("https://cdn.destiny.gg/emotes/emotes.json");
-  let asdf = 0;
+
   response.data.map((emoteInfo) => {
     emotes.push(emoteInfo.prefix);
     emoteImages.set(emoteInfo.prefix, emoteInfo.image[0].url);
