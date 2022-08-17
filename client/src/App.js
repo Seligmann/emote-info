@@ -61,7 +61,7 @@ const App = () => {
 
   const fetchUsers = async () => {
     axios
-      .get("https://www.zelig.dev/dggers")
+      .get("https://zelig.dev/dggers")
       .then((res) => {
         let resEmotes = [];
         let resUses = [];
@@ -82,7 +82,7 @@ const App = () => {
     console.log(`fetchUser for ${username}`);
 
     axios
-      .get(`https://www.zelig.dev/dggers/user?username=${username}`)
+      .get(`https://zelig.dev/dggers/user?username=${username}`)
       .then((res) => {
 
         setUsers(res.data);
@@ -114,7 +114,7 @@ const App = () => {
 
   const handleUserDelete = async () => {
     console.log(`Deleting user ${username}`);
-    await axios.delete(`https://www.zelig.dev/dggers/user?username=${username}`)
+    await axios.delete(`https://zelig.dev/dggers/user?username=${username}`)
       .then((res) => console.log(`Deleted user ${username}`))
       .catch((error) => console.error(error.message));
   }
@@ -122,7 +122,7 @@ const App = () => {
   const handleUserCreate = async () => {
     console.log(`Creating emote profile for ${username}`);
     await axios
-      .post("https://www.zelig.dev/dggers/user", { username: username })
+      .post("https://zelig.dev/dggers/user", { username: username })
       .then((res) => {
         console.log(`Created emote profile for ${username}`);
       })
