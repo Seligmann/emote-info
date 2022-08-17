@@ -190,8 +190,33 @@ export const CuckCrab = styled.div`
 
 const sprites = ["MiyanoHype", "CuckCrab", "Clap", "BINGQILIN", "BERN", "Askers", "Klappa", "MALARKEY", "Shrugstiny", "RaveDoge", "catJAM", "pepeSteer", "FiveHead", "SMASHit", "OOOO", "peepoRiot", "WOOF", "WooYeah"];
 
-export const Dggers = (props) => (
-  <table style={{width: "300px"}}>
+export const Dggers = (props) => {
+	if (!props.loading && !props.users?.length > 0) {
+		return (
+      <div style={{paddingTop: 10}}>
+        <div><img src={prayge} height="40" width="40" style={{display: "block", marginRight: "auto", marginLeft: "auto"}}/></div>
+        <div style={{textAlign:"center"}}>Search a user</div>
+      </div>
+
+		)
+	} else if (props.searched && props.loading) {
+		return (
+      <div style={{paddingTop: 10}}>
+        <div><img src={catJam} height="40" width="40" style={{display: "block", marginRight: "auto", marginLeft: "auto"}}/></div>
+        <div style={{textAlign:"center"}}>Searching...</div>
+      </div>
+		)
+	} else if (props.users?.length > 0) {
+		return (
+
+  <table style={{width: "300px", paddingTop: 10}}>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Emote</th>
+        <th>Count</th>
+      </tr>
+    </thead>
 
     <style>{`
     table {
