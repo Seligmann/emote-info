@@ -74,10 +74,17 @@ const App = () => {
     e.preventDefault();
     if (username.length > 0) {
       console.log(`Submission successful for ${username}`);
+
+			if (searched && users?.length > 0) {
+				setUsers({});
+			}
+
       setSearched(true);
+			setLoading(true);
       await handleUserDelete();
       await handleUserCreate();
-      fetchUser(); // FIXME when the response is received, they should be passed to the dgger component
+      fetchUser();
+			setLoading(false);
     }
   };
 
@@ -106,10 +113,10 @@ const App = () => {
         <style>{"body { background-color: #363636; color: #ffffff; }"}</style>
       </Helmet>
       <CssBaseline>
-        <Box>
-          <AppBar style={{ background: "#3f4042" }} position={"fixed"}>
+        <Box> 
+          <AppBar style={{ background: "#3f4042"}} position={"fixed"}>
             <Toolbar>
-              <img src={dankG} height="55" style={{ paddingRight: 10 }} />
+              <img src={dankG} height="55" style={{ paddingRight: 10 }} alt=""/>
               <Typography
                 variant="h6"
                 noWrap

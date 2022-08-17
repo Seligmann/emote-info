@@ -1,5 +1,7 @@
 import React from "react";
 import styled, {keyframes} from 'styled-components';
+import prayge from '../../images/prayge.png';
+import catJam from '../../images/catJam.gif';
 
 // FIXME create db of emotes so that i can easily reference each emote and it's info (like image url)
 
@@ -62,7 +64,7 @@ export const Oooo = styled.div`
   height: 28px;
   width: 29px;
   background: url("https://cdn.destiny.gg/2.45.2/emotes/5e75f1c3a21a1.png") 0px 0px;
-  animation: ${animationOooo} 1.8s steps(21) infinite; 
+  animation: ${animationOooo} 1.4s steps(21) infinite; 
 `;
 
 
@@ -83,7 +85,7 @@ export const PepeSteer = styled.div`
   height: 30px;
   width: 30px;
   background: url("https://cdn.destiny.gg/2.45.2/emotes/5fc5c2f5071e9.png") 0px 0px;
-  animation: ${animationPepeSteer} 1.5s steps(24) infinite; 
+  animation: ${animationPepeSteer} 1.2s steps(24) infinite; 
 `;
 
 const animationRaveDoge = keyframes`
@@ -185,10 +187,36 @@ export const CuckCrab = styled.div`
   background: url("https://cdn.destiny.gg/2.45.2/emotes/5fc5b4b8d0924.png") 0px 0px;
   animation: ${animationCuckCrab} 3s steps(92) infinite; 
 `;
+
 const sprites = ["MiyanoHype", "CuckCrab", "Clap", "BINGQILIN", "BERN", "Askers", "Klappa", "MALARKEY", "Shrugstiny", "RaveDoge", "catJAM", "pepeSteer", "FiveHead", "SMASHit", "OOOO", "peepoRiot", "WOOF", "WooYeah"];
 
-export const Dggers = (props) => (
-  <table style={{width: "300px"}}>
+export const Dggers = (props) => {
+	if (!props.loading && !props.users?.length > 0) {
+		return (
+      <div style={{paddingTop: 10}}>
+        <div><img src={prayge} height="40" width="40" style={{display: "block", marginRight: "auto", marginLeft: "auto"}}/></div>
+        <div style={{textAlign:"center"}}>Search a user</div>
+      </div>
+
+		)
+	} else if (props.searched && props.loading) {
+		return (
+      <div style={{paddingTop: 10}}>
+        <div><img src={catJam} height="40" width="40" style={{display: "block", marginRight: "auto", marginLeft: "auto"}}/></div>
+        <div style={{textAlign:"center"}}>Searching...</div>
+      </div>
+		)
+	} else if (props.users?.length > 0) {
+		return (
+
+  <table style={{width: "300px", paddingTop: 10}}>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Emote</th>
+        <th>Count</th>
+      </tr>
+    </thead>
 
     <style>{`
     table {
