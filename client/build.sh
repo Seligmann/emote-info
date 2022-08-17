@@ -1,5 +1,5 @@
 caddy stop
 
-npm run build
+yarn run build 
 
 caddy start
