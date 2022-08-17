@@ -115,7 +115,7 @@ const App = () => {
         <Box> 
           <AppBar style={{ background: "#3f4042"}} position={"fixed"}>
             <Toolbar>
-              <img src={dankG} height="55" style={{ paddingRight: 10 }} alt=""/>
+              <img id="logo" src={dankG} style={{ paddingRight: 10 }} alt=""/>
               <Typography
                 variant="h6"
                 noWrap
