@@ -33,15 +33,18 @@ import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import { CssBaseline } from "@material-ui/core";
 import { Helmet } from "react-helmet";
+import dotenv from 'dotenv';
 
 import { Dggers } from "./components/Dggers/Dggers";
 import dankG from "./images/dankG.png";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 
+dotenv.config();
+
 // const timestamp = new Date().getTime();
 // console.log(timestamp);
 
-// axios.post("https://www.zelig.dev/dggers", {timestamp: timestamp})
+// axios.post(`${URL}/dggers`, {timestamp: timestamp})
 //   .then(() => {
 //     console.log("Updated logs successfully");
 //   })
@@ -59,9 +62,18 @@ const App = () => {
     fetchUser();
   }, []);
 
+  const PORT = process.env.REACT_APP_PORT;
+  const HOST = process.env.REACT_APP_HOST;
+  let URL;
+  if (HOST === "localhost") {
+    URL = `http://${HOST}:${PORT}`;
+  } else {
+    URL = `https://${HOST}`;
+  }
+
   const fetchUsers = async () => {
     axios
-      .get("https://www.zelig.dev/dggers")
+      .get(`${URL}/dggers`)
       .then((res) => {
         let resEmotes = [];
         let resUses = [];
@@ -82,7 +94,7 @@ const App = () => {
     console.log(`fetchUser for ${username}`);
 
     axios
-      .get(`https://www.zelig.dev/dggers/user?username=${username}`)
+      .get(`${URL}/dggers/user?username=${username}`)
       .then((res) => {
 
         setUsers(res.data);
@@ -114,7 +126,7 @@ const App = () => {
 
   const handleUserDelete = async () => {
     console.log(`Deleting user ${username}`);
-    await axios.delete(`https://www.zelig.dev/dggers/user?username=${username}`)
+    await axios.delete(`${URL}/dggers/user?username=${username}`)
       .then((res) => console.log(`Deleted user ${username}`))
       .catch((error) => console.error(error.message));
   }
@@ -122,7 +134,7 @@ const App = () => {
   const handleUserCreate = async () => {
     console.log(`Creating emote profile for ${username}`);
     await axios
-      .post("https://www.zelig.dev/dggers/user", { username: username })
+      .post(`${URL}/dggers/user`, { username: username })
       .then((res) => {
         console.log(`Created emote profile for ${username}`);
       })
@@ -166,7 +178,6 @@ const App = () => {
         </Box>
         <Toolbar />
       </CssBaseline>
-      <div style={{position: "left", width: "15%", position: "absolute", top: "69px", left: "20px"}}><strong>NOTE: Please search your username with a ":" (e.g. myusername:), as a current database is under maintenance.</strong></div>
       <div className="user-list-wrapper">
         <Dggers users={users} searched={searched} loading={loading} />
       </div>
