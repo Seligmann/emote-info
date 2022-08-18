@@ -17,8 +17,8 @@ app.use(cors());
 app.use('/dggers', router);
 app.use('/dggers/user', router);
 
-const hostname = "127.0.0.1";
-const port = 3000;
+const hostname = process.env.HOST;
+const port = process.env.PORT;
 
 app.listen(port, hostname, () => {
     console.log(`Server running on port ${hostname}:${port}`)
