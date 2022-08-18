@@ -2,26 +2,28 @@
 /*     
 TODO
 
-Needed
-------
-- rewrite to get user emote stats from DB
-- add emote images
-- sort lists in descending order
-- don't GET user info until it's been checked if the user needs to be UPDATEd or POSTed
+- component for "user not found :pepoThink:"
+- side div containing what the website is for, and a short mention of limitations so that the user knows what channels they can search within
+- github icon
+- about page
+- total messages count
+- "Search..." -> "Username" in search bar
+- top emotes of all-time 
+- top emotes of month 
+- top chatters of all-time
+- top chatters of the month
+- better domain
 - add list for the users top emotes for the current month
 
-- move ORL logs into another local DB
+- appbar is a bit too tall...
 - this codebase is terrible to read even though i'm the one who wrote it... fix this ... 
 */
 
 /*
 FIXME
-- Users (sometimes?...) can't be re-searched in the same session *thinking* . Make sure that if there are props that exist and there are new props coming in, that the previous props have 
-  been deleted so that the component knows that it's been changed even if its searching a user that was previously searched in the same session.
-- As a username is being typed in, there is background processing that is slowing stuff down. Check how often props are being updated (see how to only process props on submit. I
-  think they're being updated on change...)
-- some indentation is 2 spaces, some is 4 spaces, i love switching to vim :)
+
 */
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import * as React from "react";
@@ -91,8 +93,6 @@ const App = () => {
   };
 
   const fetchUser = async () => {
-    console.log(`fetchUser for ${username}`);
-
     axios
       .get(`${URL}/dggers/user?username=${username}`)
       .then((res) => {
@@ -109,8 +109,6 @@ const App = () => {
   const handleUserSubmit = async (e) => { 
     e.preventDefault();
     if (username.length > 0) {
-      console.log(`Submission successful for ${username}`);
-
 			if (searched && users?.length > 0) {
 				setUsers({});
 			}
@@ -125,18 +123,14 @@ const App = () => {
   };
 
   const handleUserDelete = async () => {
-    console.log(`Deleting user ${username}`);
     await axios.delete(`${URL}/dggers/user?username=${username}`)
-      .then((res) => console.log(`Deleted user ${username}`))
       .catch((error) => console.error(error.message));
   }
 
   const handleUserCreate = async () => {
-    console.log(`Creating emote profile for ${username}`);
     await axios
       .post(`${URL}/dggers/user`, { username: username })
       .then((res) => {
-        console.log(`Created emote profile for ${username}`);
       })
       .catch((error) =>
         console.error(`Error while creating the user ${username}`)

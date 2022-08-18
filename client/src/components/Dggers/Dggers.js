@@ -1,7 +1,8 @@
 import React from "react";
-import styled, {keyframes} from 'styled-components';
-import prayge from '../../images/prayge.png';
-import catJam from '../../images/catJam.gif';
+import styled, { keyframes } from "styled-components";
+import prayge from "../../images/prayge.png";
+import catJam from "../../images/catJam.gif";
+import dankThink from "../../images/dankThink.png";
 
 // FIXME create db of emotes so that i can easily reference each emote and it's info (like image url)
 
@@ -13,8 +14,9 @@ const animationFiveHead = keyframes`
 export const FiveHead = styled.div`
   height: 34px;
   width: 30px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fa1f1d6e4f61.png") 0px 0px;
-  animation: ${animationFiveHead} 1.8s steps(34) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fa1f1d6e4f61.png") 0px
+    0px;
+  animation: ${animationFiveHead} 1.8s steps(34) infinite;
 `;
 
 const animationCatJam = keyframes`
@@ -23,8 +25,9 @@ const animationCatJam = keyframes`
 export const CatJam = styled.div`
   height: 30px;
   width: 30px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5f9325d81e730.png") 0px 0px;
-  animation: ${animationCatJam} 7s steps(188) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5f9325d81e730.png") 0px
+    0px;
+  animation: ${animationCatJam} 7s steps(188) infinite;
 `;
 
 const animationSmashIt = keyframes`
@@ -33,8 +36,9 @@ const animationSmashIt = keyframes`
 export const SmashIt = styled.div`
   height: 29px;
   width: 41px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/604fa4fa5ca3d.png") 0px 0px;
-  animation: ${animationSmashIt} 1.5s steps(68) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/604fa4fa5ca3d.png") 0px
+    0px;
+  animation: ${animationSmashIt} 1.5s steps(68) infinite;
 `;
 
 const animationWoof = keyframes`
@@ -43,8 +47,9 @@ const animationWoof = keyframes`
 export const Woof = styled.div`
   height: 31px;
   width: 50px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5f77ea04722e5.png") 0px 0px;
-  animation: ${animationWoof} 1.3s steps(17) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5f77ea04722e5.png") 0px
+    0px;
+  animation: ${animationWoof} 1.3s steps(17) infinite;
 `;
 
 const animationWooYeah = keyframes`
@@ -53,8 +58,9 @@ const animationWooYeah = keyframes`
 export const WooYeah = styled.div`
   height: 32px;
   width: 28px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/603cdf2fc0c2f.png") 0px 0px;
-  animation: ${animationWooYeah} 1.8s steps(22) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/603cdf2fc0c2f.png") 0px
+    0px;
+  animation: ${animationWooYeah} 1.8s steps(22) infinite;
 `;
 
 const animationOooo = keyframes`
@@ -63,10 +69,10 @@ const animationOooo = keyframes`
 export const Oooo = styled.div`
   height: 28px;
   width: 29px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e75f1c3a21a1.png") 0px 0px;
-  animation: ${animationOooo} 1.4s steps(21) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e75f1c3a21a1.png") 0px
+    0px;
+  animation: ${animationOooo} 1.4s steps(21) infinite;
 `;
-
 
 const animationPeepoRiot = keyframes`
   100% { background-position: -280px; }
@@ -74,8 +80,9 @@ const animationPeepoRiot = keyframes`
 export const PeepoRiot = styled.div`
   height: 32px;
   width: 35px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e9a25016d376.png") 0px 0px;
-  animation: ${animationPeepoRiot} 1s steps(8) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e9a25016d376.png") 0px
+    0px;
+  animation: ${animationPeepoRiot} 1s steps(8) infinite;
 `;
 
 const animationPepeSteer = keyframes`
@@ -84,8 +91,9 @@ const animationPepeSteer = keyframes`
 export const PepeSteer = styled.div`
   height: 30px;
   width: 30px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fc5c2f5071e9.png") 0px 0px;
-  animation: ${animationPepeSteer} 1.2s steps(24) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fc5c2f5071e9.png") 0px
+    0px;
+  animation: ${animationPepeSteer} 1.2s steps(24) infinite;
 `;
 
 const animationRaveDoge = keyframes`
@@ -94,8 +102,9 @@ const animationRaveDoge = keyframes`
 export const RaveDoge = styled.div`
   height: 34px;
   width: 40px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/603e0f856ad93.png") 0px 0px;
-  animation: ${animationRaveDoge} 2s steps(27) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/603e0f856ad93.png") 0px
+    0px;
+  animation: ${animationRaveDoge} 2s steps(27) infinite;
 `;
 
 const animationMalarkey = keyframes`
@@ -104,8 +113,9 @@ const animationMalarkey = keyframes`
 export const Malarkey = styled.div`
   height: 30px;
   width: 50px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fa6b9f31acce.png") 0px 0px;
-  animation: ${animationMalarkey} 2s steps(31) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fa6b9f31acce.png") 0px
+    0px;
+  animation: ${animationMalarkey} 2s steps(31) infinite;
 `;
 
 const animationShrugstiny = keyframes`
@@ -114,8 +124,9 @@ const animationShrugstiny = keyframes`
 export const Shrugstiny = styled.div`
   height: 32px;
   width: 32px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e8666ff1b079.png") 0px 0px;
-  animation: ${animationShrugstiny} 1.5s steps(2) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e8666ff1b079.png") 0px
+    0px;
+  animation: ${animationShrugstiny} 1.5s steps(2) infinite;
 `;
 
 const animationKlappa = keyframes`
@@ -124,8 +135,9 @@ const animationKlappa = keyframes`
 export const Klappa = styled.div`
   height: 30px;
   width: 38px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e78eb181cc2b.png") 0px 0px;
-  animation: ${animationKlappa} 1s steps(2) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e78eb181cc2b.png") 0px
+    0px;
+  animation: ${animationKlappa} 1s steps(2) infinite;
 `;
 
 const animationMiyanoHype = keyframes`
@@ -134,8 +146,9 @@ const animationMiyanoHype = keyframes`
 export const MiyanoHype = styled.div`
   height: 32px;
   width: 32px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/61574db3e31e6.png") 0px 0px;
-  animation: ${animationMiyanoHype} 1s steps(10) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/61574db3e31e6.png") 0px
+    0px;
+  animation: ${animationMiyanoHype} 1s steps(10) infinite;
 `;
 
 const animationAskers = keyframes`
@@ -144,8 +157,9 @@ const animationAskers = keyframes`
 export const Askers = styled.div`
   height: 34px;
   width: 55px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/604fa56f679e0.png") 0px 0px;
-  animation: ${animationAskers} 3s steps(99) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/604fa56f679e0.png") 0px
+    0px;
+  animation: ${animationAskers} 3s steps(99) infinite;
 `;
 
 const animationBern = keyframes`
@@ -154,8 +168,9 @@ const animationBern = keyframes`
 export const Bern = styled.div`
   height: 30px;
   width: 50px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e75ea9259721.png") 0px 0px;
-  animation: ${animationBern} 2s steps(31) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5e75ea9259721.png") 0px
+    0px;
+  animation: ${animationBern} 2s steps(31) infinite;
 `;
 
 const animationBingqilin = keyframes`
@@ -164,8 +179,9 @@ const animationBingqilin = keyframes`
 export const Bingqilin = styled.div`
   height: 32px;
   width: 39px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/621c174883d29.png") 0px 0px;
-  animation: ${animationBingqilin} 3s steps(90) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/621c174883d29.png") 0px
+    0px;
+  animation: ${animationBingqilin} 3s steps(90) infinite;
 `;
 
 const animationClap = keyframes`
@@ -174,8 +190,9 @@ const animationClap = keyframes`
 export const Clap = styled.div`
   height: 32px;
   width: 22px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fcdbf43b5737.png") 0px 0px;
-  animation: ${animationClap} 1s steps(2) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fcdbf43b5737.png") 0px
+    0px;
+  animation: ${animationClap} 1s steps(2) infinite;
 `;
 
 const animationCuckCrab = keyframes`
@@ -184,41 +201,81 @@ const animationCuckCrab = keyframes`
 export const CuckCrab = styled.div`
   height: 30px;
   width: 32px;
-  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fc5b4b8d0924.png") 0px 0px;
-  animation: ${animationCuckCrab} 3s steps(92) infinite; 
+  background: url("https://cdn.destiny.gg/2.45.2/emotes/5fc5b4b8d0924.png") 0px
+    0px;
+  animation: ${animationCuckCrab} 3s steps(92) infinite;
 `;
 
-const sprites = ["MiyanoHype", "CuckCrab", "Clap", "BINGQILIN", "BERN", "Askers", "Klappa", "MALARKEY", "Shrugstiny", "RaveDoge", "catJAM", "pepeSteer", "FiveHead", "SMASHit", "OOOO", "peepoRiot", "WOOF", "WooYeah"];
+const sprites = [
+  "MiyanoHype",
+  "CuckCrab",
+  "Clap",
+  "BINGQILIN",
+  "BERN",
+  "Askers",
+  "Klappa",
+  "MALARKEY",
+  "Shrugstiny",
+  "RaveDoge",
+  "catJAM",
+  "pepeSteer",
+  "FiveHead",
+  "SMASHit",
+  "OOOO",
+  "peepoRiot",
+  "WOOF",
+  "WooYeah",
+];
 
 export const Dggers = (props) => {
-	if (!props.loading && !props.users?.length > 0) {
-		return (
-      <div style={{paddingTop: 10}}>
-        <div><img src={prayge} height="40" width="40" style={{display: "block", marginRight: "auto", marginLeft: "auto"}}/></div>
-        <div style={{textAlign:"center"}}>Search a user</div>
+  if (!props.searched) {
+    return (
+      <div style={{ paddingTop: 10 }}>
+        <div>
+          <img
+            src={prayge}
+            height="40"
+            width="40"
+            style={{
+              display: "block",
+              marginRight: "auto",
+              marginLeft: "auto",
+            }}
+          />
+        </div>
+        <div style={{ textAlign: "center" }}>Search a user</div>
       </div>
-
-		)
-	} else if (props.searched && props.loading) {
-		return (
-      <div style={{paddingTop: 10}}>
-        <div><img src={catJam} height="40" width="40" style={{display: "block", marginRight: "auto", marginLeft: "auto"}}/></div>
-        <div style={{textAlign:"center"}}>Searching...</div>
+    );
+  } else if (props.loading) {
+    return (
+      <div style={{ paddingTop: 10 }}>
+        <div>
+          <img
+            src={catJam}
+            height="40"
+            width="40"
+            style={{
+              display: "block",
+              marginRight: "auto",
+              marginLeft: "auto",
+            }}
+          />
+        </div>
+        <div style={{ textAlign: "center" }}>Searching...</div>
       </div>
-		)
-	} else if (props.users?.length > 0) {
-		return (
+    );
+  } else if (props.users?.length > 0) {
+    return (
+      <table style={{ width: "300px", paddingTop: 10 }}>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Emote</th>
+            <th>Count</th>
+          </tr>
+        </thead>
 
-  <table style={{width: "300px", paddingTop: 10}}>
-    <thead>
-      <tr>
-        <th></th>
-        <th>Emote</th>
-        <th>Count</th>
-      </tr>
-    </thead>
-
-    <style>{`
+        <style>{`
     table {
       border-collapse: collapse;
       margin-left: auto;
@@ -237,41 +294,242 @@ export const Dggers = (props) => {
     tbody tr:nth-child(even) {
       background-color: #5c5c5c;
     }
-    `}</style> 
+    `}</style>
 
-			<tbody style={{ textAlign: "center" }}>
-    	  {props.users?.length > 0 && (
-    	    Object.keys(props.users).map((key, i) => (
-    	      <tr>
-    	        {(String(props.users[key].emote).trim() === "FiveHead") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><FiveHead/></td>)}
-    	        {(String(props.users[key].emote).trim() === "catJAM") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><CatJam/></td>)}
-    	        {(String(props.users[key].emote).trim() === "SMASHit") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><SmashIt/></td>)}
-    	        {(String(props.users[key].emote).trim() === "WOOF") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Woof/></td>)}
-    	        {(String(props.users[key].emote).trim() === "WooYeah") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><WooYeah/></td>)}
-    	        {(String(props.users[key].emote).trim() === "OOOO") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Oooo/></td>)}
-    	        {(String(props.users[key].emote).trim() === "peepoRiot") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><PeepoRiot/></td>)}
-    	        {(String(props.users[key].emote).trim() === "pepeSteer") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><PepeSteer/></td>)}
-    	        {(String(props.users[key].emote).trim() === "RaveDoge") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><RaveDoge/></td>)}
-    	        {(String(props.users[key].emote).trim() === "Shrugstiny") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Shrugstiny/></td>)}
-    	        {(String(props.users[key].emote).trim() === "MALARKEY") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Malarkey/></td>)}
-    	        {(String(props.users[key].emote).trim() === "Klappa") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Klappa/></td>)}
-    	        {(String(props.users[key].emote).trim() === "MiyanoHype") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><MiyanoHype/></td>)}
-    	        {(String(props.users[key].emote).trim() === "Askers") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Askers/></td>)}
-    	        {(String(props.users[key].emote).trim() === "BERN") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Bern/></td>)}
-    	        {(String(props.users[key].emote).trim() === "BINGQILIN") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Bingqilin/></td>)}
-    	        {(String(props.users[key].emote).trim() === "Clap") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><Clap/></td>)}
-    	        {(String(props.users[key].emote).trim() === "CuckCrab") && (<td style={{display: "flex", justifyContent: "center", alignItems: "center"}}><CuckCrab/></td>)}
-    	        {!sprites.includes(String(props.users[key].emote).trim()) && (<td><img src={props.users[key].emote_image} alt=""/></td>)}
+        <tbody style={{ textAlign: "center" }}>
+          {props.users?.length > 0 &&
+            Object.keys(props.users).map((key, i) => (
+              <tr>
+                {String(props.users[key].emote).trim() === "FiveHead" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FiveHead />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "catJAM" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CatJam />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "SMASHit" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <SmashIt />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "WOOF" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Woof />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "WooYeah" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <WooYeah />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "OOOO" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Oooo />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "peepoRiot" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <PeepoRiot />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "pepeSteer" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <PepeSteer />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "RaveDoge" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <RaveDoge />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "Shrugstiny" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Shrugstiny />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "MALARKEY" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Malarkey />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "Klappa" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Klappa />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "MiyanoHype" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <MiyanoHype />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "Askers" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Askers />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "BERN" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Bern />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "BINGQILIN" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Bingqilin />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "Clap" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Clap />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "CuckCrab" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CuckCrab />
+                  </td>
+                )}
+                {!sprites.includes(String(props.users[key].emote).trim()) && (
+                  <td>
+                    <img src={props.users[key].emote_image} alt="" />
+                  </td>
+                )}
 
-    	        <td>{props.users[key].emote}</td>
-    	        <td>{props.users[key].uses}</td>
-    	      </tr>
-    	    ))
-    	  )}
-    	</tbody>
-	</table>
-		)
+                <td>{props.users[key].emote}</td>
+                <td>{props.users[key].uses}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    );
+  } else {
 
-	}
+    return (
+      <div style={{ paddingTop: 10 }}>
+        <div>
+          <img
+            src={dankThink}
+            height="40"
+            width="40"
+            style={{
+              display: "block",
+              marginRight: "auto",
+              marginLeft: "auto",
+            }}
+          />
+        </div>
+        <div style={{ textAlign: "center" }}>User not found</div>
+      </div>
+    );
+  }
 
-}
+};
