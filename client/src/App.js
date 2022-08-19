@@ -150,6 +150,7 @@ const App = () => {
               <Typography
                 variant="h6"
                 component="div"
+                sx={{ display: { xs: "none", sm: "block" } }}
               >
                 EmoteZ
               </Typography>
