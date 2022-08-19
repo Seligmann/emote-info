@@ -1,3 +1,38 @@
+#main {
+    padding-top: 1%;
+}
+
+#info {
+    height: fit-content;
+    background-color: #3f4042;
+    padding: 1%;
+    margin: 0 0 1% 1%;
+    width: 20%;
+    float: left;
+    text-justify: auto;
+}
+
+#infoTitle {
+    font-size: 20px;
+    color: white;
+    margin: 0%;
+}
+
+#infoParagraph {
+    font-size: 18px;
+    color: #e3e3e3;
+    margin: 1% 0 0 0;
+}
+
+#user-list-wrapper {
+    justify-content: center;
+    padding: 1%;
+    font-size: 18px;
+    width: 79%;
+    margin-left: 21%;
+    margin-right: 1%;
+}
+
 #logo {
     height: 45px;
 }
@@ -5,6 +40,13 @@
 #githubLogo {
     height: 35px;
 }
+
+#link{
+    text-decoration: none;
+    color: #3366BB;
+}
+  
+
 @media screen and (max-width: 768px) {
     #logo {height: 40px;}
     #githubLogo {height: 30px;}
