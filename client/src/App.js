@@ -145,7 +145,7 @@ const App = () => {
       </Helmet>
       <CssBaseline>
         <Box> 
-          <AppBar style={{ background: "#3f4042"}} position={"fixed"}>
+          <AppBar style={{height: 60, background: "#3f4042"}} position={"fixed"}>
             <Toolbar>
               <img id="logo" src={dankG} style={{ paddingRight: 10 }} alt=""/>
               <Typography
@@ -169,7 +169,7 @@ const App = () => {
                   />
                 </form>
               </Search>
-              <a style={{ paddingLeft: 15, marginLeft: "auto", display: "block"}} href="https://github.com/Seligmann/dgg-emote-profiles"> <img id="githubLogo" src={github} alt=""/></a>
+              <a style={{ paddingLeft: 15, marginLeft: "auto", marginTop: 5}} href="https://github.com/Seligmann/dgg-emote-profiles"> <img id="githubLogo" src={github} alt=""/></a>
             </Toolbar>
           </AppBar>
         </Box>
