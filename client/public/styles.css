@@ -1,6 +1,11 @@
 #logo {
     height: 55px;
 }
+
+#githubLogo {
+    height: 45px;
+}
 @media screen and (max-width: 768px) {
     #logo {height: 45px;}
+    #githubLogo {height: 40px;}
 }

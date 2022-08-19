@@ -39,6 +39,7 @@ import dotenv from 'dotenv';
 
 import { Dggers } from "./components/Dggers/Dggers";
 import dankG from "./images/dankG.png";
+import github from "./images/GitHub-Mark-Light-120px-plus.png"
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 
 dotenv.config();
@@ -150,6 +151,7 @@ const App = () => {
               <Typography
                 variant="h6"
                 component="div"
+                sx={{ display: { xs: "none", sm: "block" } }}
               >
                 EmoteZ
               </Typography>
@@ -167,6 +169,7 @@ const App = () => {
                   />
                 </form>
               </Search>
+              <a style={{ paddingLeft: 15, marginLeft: "auto", display: "block"}} href="https://github.com/Seligmann/dgg-emote-profiles"> <img id="githubLogo" src={github} alt=""/></a>
             </Toolbar>
           </AppBar>
         </Box>
