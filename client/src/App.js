@@ -1,4 +1,3 @@
-
 /*     
 TODO
 
@@ -35,11 +34,11 @@ import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import { CssBaseline } from "@material-ui/core";
 import { Helmet } from "react-helmet";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 import { Dggers } from "./components/Dggers/Dggers";
 import dankG from "./images/dankG.png";
-import github from "./images/GitHub-Mark-Light-120px-plus.png"
+import github from "./images/GitHub-Mark-Light-120px-plus.png";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 
 dotenv.config();
@@ -99,7 +98,9 @@ const App = () => {
       .get(`${URL}/dggers/user?username=${username}`)
       .then((res) => {
         setUsers(res.data);
-        res.data.length > 0 && !loading ? setUserFound(true) : setUserFound(false);
+        res.data.length > 0 && !loading
+          ? setUserFound(true)
+          : setUserFound(false);
         setLoading(false);
       })
       .catch((error) => {
@@ -108,14 +109,14 @@ const App = () => {
   };
 
   // FIXME right now we're deleting emote_info for user and replacing it with new info... is it a better idea to use UPDATE to just update the user instead?
-  // Note that it isn't promised that the user used a NEW emote from last time. They may have just used the same emotes more. 
-  const handleUserSubmit = async (e) => { 
+  // Note that it isn't promised that the user used a NEW emote from last time. They may have just used the same emotes more.
+  const handleUserSubmit = async (e) => {
     e.preventDefault();
     setUserFound(null);
     setUsers({});
     if (username.length > 0) {
       setSearched(true);
-			setLoading(true);
+      setLoading(true);
       await handleUserDelete();
       await handleUserCreate();
       fetchUser();
@@ -123,15 +124,15 @@ const App = () => {
   };
 
   const handleUserDelete = async () => {
-    await axios.delete(`${URL}/dggers/user?username=${username}`)
+    await axios
+      .delete(`${URL}/dggers/user?username=${username}`)
       .catch((error) => console.error(error.message));
-  }
+  };
 
   const handleUserCreate = async () => {
     await axios
       .post(`${URL}/dggers/user`, { username: username })
-      .then((res) => {
-      })
+      .then((res) => {})
       .catch((error) =>
         console.error(`Error while creating the user ${username}`)
       );
@@ -143,10 +144,13 @@ const App = () => {
         <style>{"body { background-color: #363636; color: #ffffff; }"}</style>
       </Helmet>
       <CssBaseline>
-        <Box> 
-          <AppBar style={{height: 60, background: "#3f4042"}} position={"fixed"}>
+        <Box>
+          <AppBar
+            style={{ height: 60, background: "#3f4042" }}
+            position={"fixed"}
+          >
             <Toolbar>
-              <img id="logo" src={dankG} style={{ paddingRight: 10 }} alt=""/>
+              <img id="logo" src={dankG} style={{ paddingRight: 10 }} alt="" />
               <Typography
                 variant="h6"
                 component="div"
@@ -168,7 +172,14 @@ const App = () => {
                   />
                 </form>
               </Search>
-              <a style={{ paddingLeft: 15, marginLeft: "auto", marginTop: 5}} href="https://github.com/Seligmann/dgg-emote-profiles"> <img id="githubLogo" src={github} alt=""/></a>
+              <a
+                title="Github"
+                style={{ paddingLeft: 15, marginLeft: "auto", marginTop: 5 }}
+                href="https://github.com/Seligmann/dgg-emote-profiles"
+              >
+                {" "}
+                <img id="githubLogo" src={github} alt="" />
+              </a>
             </Toolbar>
           </AppBar>
         </Box>
@@ -200,9 +211,6 @@ const App = () => {
           </div>
         </div>
       </CssBaseline>
-      <div className="user-list-wrapper">
-        <Dggers users={users} searched={searched} loading={loading} userFound={userFound}/>
-      </div>
     </Container>
   );
 };
