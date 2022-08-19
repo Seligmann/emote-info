@@ -60,9 +60,10 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState({});
   const [searched, setSearched] = useState(false);
+  const [userFound, setUserFound] = useState(null);
 
   useEffect(() => {
-    fetchUser();
+    if (searched) fetchUser();
   }, []);
 
   const PORT = process.env.REACT_APP_PORT;
@@ -94,11 +95,12 @@ const App = () => {
   };
 
   const fetchUser = async () => {
-    axios
+    await axios
       .get(`${URL}/dggers/user?username=${username}`)
       .then((res) => {
-
         setUsers(res.data);
+        res.data.length > 0 && !loading ? setUserFound(true) : setUserFound(false);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -109,17 +111,14 @@ const App = () => {
   // Note that it isn't promised that the user used a NEW emote from last time. They may have just used the same emotes more. 
   const handleUserSubmit = async (e) => { 
     e.preventDefault();
+    setUserFound(null);
+    setUsers({});
     if (username.length > 0) {
-			if (searched && users?.length > 0) {
-				setUsers({});
-			}
-
       setSearched(true);
 			setLoading(true);
       await handleUserDelete();
       await handleUserCreate();
       fetchUser();
-			setLoading(false);
     }
   };
 
@@ -176,7 +175,7 @@ const App = () => {
         <Toolbar />
       </CssBaseline>
       <div className="user-list-wrapper">
-        <Dggers users={users} searched={searched} loading={loading} />
+        <Dggers users={users} searched={searched} loading={loading} userFound={userFound}/>
       </div>
     </Container>
   );

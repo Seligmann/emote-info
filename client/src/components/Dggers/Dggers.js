@@ -264,7 +264,7 @@ export const Dggers = (props) => {
         <div style={{ textAlign: "center" }}>Searching...</div>
       </div>
     );
-  } else if (props.users?.length > 0) {
+  } else if (props.userFound) {
     return (
       <table style={{ width: "300px", paddingTop: 10 }}>
         <thead>
@@ -511,7 +511,7 @@ export const Dggers = (props) => {
         </tbody>
       </table>
     );
-  } else {
+  } else if (!props.userFound) {
 
     return (
       <div style={{ paddingTop: 10 }}>
