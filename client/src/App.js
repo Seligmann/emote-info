@@ -138,7 +138,7 @@ const App = () => {
   };
 
   return (
-    <Container id="container">
+    <Container maxWidth={false} maxidth="lg">
       <Helmet>
         <style>{"body { background-color: #363636; color: #ffffff; }"}</style>
       </Helmet>
@@ -173,6 +173,32 @@ const App = () => {
           </AppBar>
         </Box>
         <Toolbar />
+        <div id="main">
+          <div id="info">
+            <h4 id="infoTitle">About</h4>
+            <p id="infoParagraph">
+              EmoteProfiles allow anyone to see user-level emote usage for all
+              users on{" "}
+              <a id="link" href="https://www.destiny.gg/">
+                destiny.gg
+              </a>
+              . This site will support{" "}
+              <a id="link" href="https://www.twitch.tv/xqc">
+                twitch.tv/xqc
+              </a>{" "}
+              in the future, and possibly more channels. Simply search for a
+              username to get started.
+            </p>
+          </div>
+          <div id="user-list-wrapper">
+            <Dggers
+              users={users}
+              searched={searched}
+              loading={loading}
+              userFound={userFound}
+            />
+          </div>
+        </div>
       </CssBaseline>
       <div className="user-list-wrapper">
         <Dggers users={users} searched={searched} loading={loading} userFound={userFound}/>
