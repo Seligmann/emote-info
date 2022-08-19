@@ -152,7 +152,7 @@ const App = () => {
                 component="div"
                 sx={{ display: { xs: "none", sm: "block" } }}
               >
-                EmoteZ
+                EmoteProfiles
               </Typography>
               <Search>
                 <SearchIconWrapper>
