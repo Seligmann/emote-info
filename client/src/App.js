@@ -138,7 +138,7 @@ const App = () => {
   };
 
   return (
-    <Container maxidth="lg">
+    <Container id="container">
       <Helmet>
         <style>{"body { background-color: #363636; color: #ffffff; }"}</style>
       </Helmet>
