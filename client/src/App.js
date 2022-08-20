@@ -32,14 +32,17 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
 import { CssBaseline } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import dotenv from "dotenv";
-
 import { Dggers } from "./components/Dggers/Dggers";
 import dankG from "./images/dankG.png";
 import github from "./images/GitHub-Mark-Light-120px-plus.png";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
+import { display } from "@mui/system";
 
 dotenv.config();
 
@@ -53,6 +56,34 @@ dotenv.config();
 //   .catch((error) => {
 //     console.log(`Error updating logs: ${error}`);
 //   });
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
+const classes = {
+  root: {
+    flexGrow: 1,
+    display: "flex",
+  },
+  appbar: {
+    marginBottom: "50px",
+  },
+  info: {
+    backgroundColor: "#3f4042",
+    color: "white",
+  },
+  emoteList: {
+    paddingTop: "17px",
+    textAlign: "center",
+    backgroundColor: "#363636",
+    maxWidth: "100%",
+  },
+};
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -144,71 +175,89 @@ const App = () => {
         <style>{"body { background-color: #363636; color: #ffffff; }"}</style>
       </Helmet>
       <CssBaseline>
-        <Box>
-          <AppBar
-            style={{ height: 60, background: "#3f4042" }}
-            position={"fixed"}
-          >
-            <Toolbar>
-              <img id="logo" src={dankG} style={{ paddingRight: 10 }} alt="" />
-              <Typography
-                variant="h6"
-                component="div"
-                sx={{ display: { xs: "none", sm: "block" } }}
-              >
-                EmoteProfiles
-              </Typography>
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <form onSubmit={handleUserSubmit}>
-                  <StyledInputBase
-                    style={{ color: "#ffffff" }}
-                    placeholder="Search…"
-                    inputProps={{ "aria-label": "search" }}
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </form>
-              </Search>
-              <a
-                title="Github"
-                style={{ paddingLeft: 15, marginLeft: "auto", marginTop: 5 }}
-                href="https://github.com/Seligmann/dgg-emote-profiles"
-              >
-                {" "}
-                <img id="githubLogo" src={github} alt="" />
-              </a>
-            </Toolbar>
-          </AppBar>
-        </Box>
-        <Toolbar />
-        <div id="main">
-          <div id="info">
-            <h4 id="infoTitle">About</h4>
-            <p id="infoParagraph">
-              EmoteProfiles allow anyone to see user-level emote usage for all
-              users on{" "}
-              <a id="link" href="https://www.destiny.gg/">
-                destiny.gg
-              </a>
-              . This site will support{" "}
-              <a id="link" href="https://www.twitch.tv/xqc">
-                twitch.tv/xqc
-              </a>{" "}
-              in the future, and possibly more channels. Simply search for a
-              username to get started.
-            </p>
-          </div>
-          <div id="user-list-wrapper">
-            <Dggers
-              users={users}
-              searched={searched}
-              loading={loading}
-              userFound={userFound}
-            />
-          </div>
+        <div style={classes.root}>
+          <Grid container spacing={3}>
+            <Grid item style={classes.appbar} xs={12}>
+              {/* <Grid item xs> */}
+              <Box>
+                <AppBar
+                  style={{ height: 60, background: "#3f4042" }}
+                  position={"fixed"}
+                >
+                  <Toolbar>
+                    <img
+                      id="logo"
+                      src={dankG}
+                      style={{ paddingRight: 10 }}
+                      alt=""
+                    />
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      sx={{ display: { xs: "none", sm: "block" } }}
+                    >
+                      EmoteProfiles
+                    </Typography>
+                    <Search>
+                      <SearchIconWrapper>
+                        <SearchIcon />
+                      </SearchIconWrapper>
+                      <form onSubmit={handleUserSubmit}>
+                        <StyledInputBase
+                          style={{ color: "#ffffff" }}
+                          placeholder="Search…"
+                          inputProps={{ "aria-label": "search" }}
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
+                        />
+                      </form>
+                    </Search>
+                    <a
+                      title="Github"
+                      style={{
+                        paddingLeft: 15,
+                        marginLeft: "auto",
+                        marginTop: 5,
+                      }}
+                      href="https://github.com/Seligmann/dgg-emote-profiles"
+                    >
+                      {" "}
+                      <img id="githubLogo" src={github} alt="" />
+                    </a>
+                  </Toolbar>
+                </AppBar>
+              </Box>
+              {/* </Grid> */}
+            </Grid>
+            <Grid item xs={12} sm={12} md={3} lg={3}>
+              <div style={classes.info} id="info">
+                <h4 id="infoTitle">About</h4>
+                <p id="infoParagraph">
+                  EmoteProfiles allow anyone to see user-level emote usage for
+                  all users on{" "}
+                  <a id="link" href="https://www.destiny.gg/">
+                    destiny.gg
+                  </a>
+                  . This site will support{" "}
+                  <a id="link" href="https://www.twitch.tv/xqc">
+                    twitch.tv/xqc
+                  </a>{" "}
+                  in the future, and possibly more channels. Simply search for a
+                  username to get started.
+                </p>
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={12} md={9} lg={9}>
+              <div style={classes.emoteList} id="user-list-wrapper">
+                <Dggers
+                  users={users}
+                  searched={searched}
+                  loading={loading}
+                  userFound={userFound}
+                />
+              </div>
+            </Grid>
+          </Grid>
         </div>
       </CssBaseline>
     </Container>
