@@ -196,7 +196,7 @@ const App = () => {
                       component="div"
                       sx={{ display: { xs: "none", sm: "block" } }}
                     >
-                      EmoteProfiles
+                      EmoteInfo
                     </Typography>
                     <Search>
                       <SearchIconWrapper>
@@ -219,7 +219,7 @@ const App = () => {
                         marginLeft: "auto",
                         marginTop: 5,
                       }}
-                      href="https://github.com/Seligmann/dgg-emote-profiles"
+                      href="https://github.com/Seligmann/emote-info"
                     >
                       {" "}
                       <img id="githubLogo" src={github} alt="" />
@@ -233,7 +233,7 @@ const App = () => {
               <div style={classes.info} id="info">
                 <h4 id="infoTitle">About</h4>
                 <p id="infoParagraph">
-                  EmoteProfiles allow anyone to see user-level emote usage for
+                  EmoteInfo allows anyone to see user-level emote usage for
                   all users on{" "}
                   <a id="link" href="https://www.destiny.gg/">
                     destiny.gg
