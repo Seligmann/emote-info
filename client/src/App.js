@@ -243,7 +243,7 @@ const App = () => {
                     twitch.tv/xqc
                   </a>{" "}
                   in the future, and possibly more channels. Simply search for a
-                  username to get started.
+                  username (e.g. `ze1ig`, `cake`) to get started.
                 </p>
               </div>
             </Grid>
