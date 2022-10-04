@@ -206,6 +206,83 @@ export const CuckCrab = styled.div`
   animation: ${animationCuckCrab} 3s steps(92) infinite;
 `;
 
+const animationGODSTINY = keyframes`
+  100% { background-position: -1664px; }
+`;
+export const GODSTINY = styled.div`
+  height: 35px;
+  width: 37px;
+  background: url("https://cdn.destiny.gg/2.51.0/emotes/61579e27c1220.png") 0px
+    0px;
+  animation: ${animationGODSTINY} 3s steps(32) infinite;
+`;
+
+const animationOverRustle = keyframes`
+  100% { background-position: -2448px; }
+`;
+export const OverRustle = styled.div`
+  height: 32px;
+  width: 36px;
+  background: url("https://cdn.destiny.gg/2.51.0/emotes/5f7ca2392c7e4.png") 0px
+    0px;
+  animation: ${animationOverRustle} 1.75s steps(68) infinite;
+`;
+
+const animationLeRuse = keyframes`
+  100% { background-position: -3888px; }
+`;
+export const LeRuse = styled.div`
+  height: 32px;
+  width: 45px;
+  background: url("https://cdn.destiny.gg/2.51.0/emotes/615e049aa260d.png") 0px
+    0px;
+  animation: ${animationLeRuse} 3s steps(81) infinite;
+`;
+
+const animationGameOfThrows = keyframes`
+  100% { background-position: -2528px; }
+`;
+export const GameOfThrows = styled.div`
+  height: 30px;
+  width: 70px;
+  background: url("https://cdn.destiny.gg/2.51.0/emotes/5f77e837dbf66.png") 0px
+    0px;
+  animation: ${animationGameOfThrows} 3s steps(32) infinite;
+`;
+
+const animationBlade = keyframes`
+  100% { background-position: -6000px; }
+`;
+export const Blade = styled.div`
+  height: 30px;
+  width: 30px;
+  background: url("https://cdn.destiny.gg/2.51.0/emotes/61646d1070335.png") 0px
+    0px;
+  animation: ${animationBlade} 6.5s steps(200) infinite;
+`;
+
+const animationAMAZIN = keyframes`
+  100% { background-position: -2385px; }
+`;
+export const AMAZIN = styled.div`
+  height: 32px;
+  width: 50px;
+  background: url("https://cdn.destiny.gg/2.51.0/emotes/633b30edbb5bf.png") 0px
+    0px;
+  animation: ${animationAMAZIN} 3s steps(45) infinite;
+`;
+
+const animationTRUMPED = keyframes`
+  100% { background-position: -106px; }
+`;
+export const TRUMPED = styled.div`
+  height: 28px;
+  width: 50px;
+  background: url("https://cdn.destiny.gg/2.51.0/emotes/5f76770cccb6f.png") 0px
+    0px;
+  animation: ${animationTRUMPED} 1.5s steps(2) infinite;
+`;
+
 const sprites = [
   "MiyanoHype",
   "CuckCrab",
@@ -225,6 +302,13 @@ const sprites = [
   "peepoRiot",
   "WOOF",
   "WooYeah",
+  "GODSTINY",
+  "LeRuse",
+  "OverRustle",
+  "GameOfThrows",
+  "Blade",
+  "AMAZIN",
+  "TRUMPED"
 ];
 
 export const Dggers = (props) => {
@@ -300,6 +384,83 @@ export const Dggers = (props) => {
           {props.users?.length > 0 &&
             Object.keys(props.users).map((key, i) => (
               <tr>
+                {String(props.users[key].emote).trim() === "GODSTINY" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <GODSTINY />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "TRUMPED" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <TRUMPED/>
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "AMAZIN" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <AMAZIN />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "Blade" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Blade />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "GameOfThrows" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <GameOfThrows />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "LeRuse" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <LeRuse />
+                  </td>
+                )}
+                {String(props.users[key].emote).trim() === "OverRustle" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <OverRustle />
+                  </td>
+                )}
                 {String(props.users[key].emote).trim() === "FiveHead" && (
                   <td
                     style={{
