@@ -283,6 +283,17 @@ export const TRUMPED = styled.div`
   animation: ${animationTRUMPED} 1.5s steps(2) infinite;
 `;
 
+const animationATAB = keyframes`
+  100% { background-position: -520px; }
+`;
+export const ATAB = styled.div`
+  height: 30px;
+  width: 40px;
+  background: url("https://cdn.destiny.gg/2.51.0/emotes/5f838f336df76.png") 0px
+    0px;
+  animation: ${animationATAB} 1.5s steps(13) infinite;
+`;
+
 const sprites = [
   "MiyanoHype",
   "CuckCrab",
@@ -308,7 +319,8 @@ const sprites = [
   "GameOfThrows",
   "Blade",
   "AMAZIN",
-  "TRUMPED"
+  "TRUMPED",
+  "ATAB"
 ];
 
 export const Dggers = (props) => {
@@ -384,6 +396,17 @@ export const Dggers = (props) => {
           {props.users?.length > 0 &&
             Object.keys(props.users).map((key, i) => (
               <tr>
+                {String(props.users[key].emote).trim() === "ATAB" && (
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <ATAB/>
+                  </td>
+                )}
                 {String(props.users[key].emote).trim() === "GODSTINY" && (
                   <td
                     style={{
