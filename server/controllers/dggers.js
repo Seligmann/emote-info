@@ -39,7 +39,7 @@ async function allTextUrls(monthsYears) {
 
             days.data.forEach((day) => {
                 let monthCheck = monthToNum[month];
-switch (month) {
+                switch (month) {
                     case "January":
                         monthCheck = "01";
                         break;
