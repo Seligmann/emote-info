@@ -77,6 +77,9 @@ const classes = {
         backgroundColor: "#3f4042",
         color: "white",
     },
+    note: {
+        backgroundColor: "#732f2f"
+    },
     emoteList: {
         paddingTop: "17px",
         textAlign: "center",
@@ -179,7 +182,6 @@ const App = () => {
                 <div style={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item style={classes.appbar} xs={12}>
-                            {/* <Grid item xs> */}
                             <Box>
                                 <AppBar
                                     style={{height: 60, background: "#3f4042"}}
@@ -228,15 +230,27 @@ const App = () => {
                                     </Toolbar>
                                 </AppBar>
                             </Box>
-                            {/* </Grid> */}
                         </Grid>
                         <Grid item xs={12} sm={12} md={3} lg={3}>
+
+                            <div style={classes.note} id="info">
+                                <h4 id="infoTitle">Note</h4>
+                                <p id="infoParagraph">
+                                    A domain that EmoteInfo is dependent on for logs from{" "}
+                                    <a id="link" href="https://www.destiny.gg/">
+                                        destiny.gg
+                                    </a>
+                                    {" "}is unavailable for an unknown reason, so current emote usage
+                                    counts will remain unchanged indefinitely in regards to this channel.
+                                </p>
+                            </div>
+
                             <div style={classes.info} id="info">
                                 <h4 id="infoTitle">About</h4>
                                 <p id="infoParagraph">
                                     EmoteInfo allows anyone to see user-level emote usage for
                                     all users on{" "}
-                                    <a id="link" href="https://www.destiny.gg/">
+                                    <a id="link" href="htt  ps://www.destiny.gg/">
                                         destiny.gg
                                     </a>
                                     . This site will support{" "}
