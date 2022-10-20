@@ -1,5 +1,6 @@
 import axios from "axios";
 import Database from "better-sqlite3";
+
 async function allMonthsYears() {
     try {
         const response = await axios.get(
@@ -11,6 +12,11 @@ async function allMonthsYears() {
     }
 }
 
+/*
+Gets all urls to a .txt file for every user, for every month and year combination.
+
+monthsYears: data from a response that holds
+*/
 async function allTextUrls(monthsYears) {
     let txtUrls = [];
     const monthToNum = {
@@ -32,55 +38,10 @@ async function allTextUrls(monthsYears) {
         try {
             let month = monthsYears[i].split(" ")[0].trim();
             const year = monthsYears[i].split(" ")[1].trim();
-
             const days = await axios.get(`https://overrustlelogs.net/api/v1/Destinygg/${month} ${year}/days.json`); // [broadcasters.txt, subscribers.txt, 2022-08-02.txt, ...]
-
-
 
             days.data.forEach((day) => {
                 let monthCheck = monthToNum[month];
-                switch (month) {
-                    case "January":
-                        monthCheck = "01";
-                        break;
-                    case "February":
-                        monthCheck = "02";
-                        break;
-                    case "March":
-                        monthCheck = "03";
-                        break;
-                    case "April":
-                        monthCheck = "04";
-                        break;
-                    case "May":
-                        monthCheck = "05";
-                        break;
-                    case "June":
-                        monthCheck = "06";
-                        break;
-                    case "July":
-                        monthCheck = "07";
-                        break;
-                    case "August":
-                        monthCheck = "08";
-                        break;
-                    case "September":
-                        monthCheck = "09";
-                        break;
-                    case "October":
-                        monthCheck = "10";
-                        break;
-                    case "November":
-                        monthCheck = "11";
-                        break;
-                    case "December":
-                        monthCheck = "12";
-                        break;
-
-                    default:
-                        console.log("Month was not between January-December");
-                        break;
-                }
 
                 if (day.substring(0, 4).includes(year) && day.substring(5, 7).includes(monthCheck)) { // day = 2022-12-31
                     txtUrls.push(`https://overrustlelogs.net/Destinygg%20chatlog/${month} ${year}/${day}`);
@@ -208,48 +169,22 @@ export const updateLogs = async (req, res) => {
             ) {
             // NOTE: day and month may need 0 padding before val (e.g. month: 5 and/or day: 2 -> month: 05 and/or day: 02)
             let monthCheck;
-            switch (month) {
-                case 1:
-                    monthCheck = "January";
-                    break;
-                case 2:
-                    monthCheck = "February";
-                    break;
-                case 3:
-                    monthCheck = "March";
-                    break;
-                case 4:
-                    monthCheck = "April";
-                    break;
-                case 5:
-                    monthCheck = "May";
-                    break;
-                case 6:
-                    monthCheck = "June";
-                    break;
-                case 7:
-                    monthCheck = "July";
-                    break;
-                case 8:
-                    monthCheck = "August";
-                    break;
-                case 9:
-                    monthCheck = "September";
-                    break;
-                case 10:
-                    monthCheck = "October";
-                    break;
-                case 11:
-                    monthCheck = "November";
-                    break;
-                case 12:
-                    monthCheck = "December";
-                    break;
-
-                default:
-                    console.log("Month was not between 1-12");
-                    break;
+            const numToMonth = {
+                1: "January",
+                2: "February",
+                3: "March",
+                4: "April",
+                5: "May",
+                6: "June",
+                7: "July",
+                8: "August",
+                9: "September",
+                10: "October",
+                11: "November",
+                12: "December"
             }
+
+            monthCheck = numToMonth[month];
 
             let response;
             if (parseInt(day / 10) > 0) {
