@@ -18,26 +18,22 @@
 /* About section */
 #info {
   background-color: #3f4042;
+  padding: 16px 24px;
 }
 #infoTitle {
   font-size: 20px;
   color: white;
-  padding: 2% 2% 0 2%;
 }
 #infoParagraph {
   font-size: 18px;
   color: #e3e3e3;
-  padding: 0 2% 2% 2%;
 }
 
 /* List of emote uses */
 #user-list-wrapper {
   justify-content: center;
-  /* padding: 1%; */
   font-size: 18px;
-  /* width: 79%;
-    margin-left: 21%;
-    margin-right: 1%; */
+
 }
 
 @media screen and (max-width: 768px) {

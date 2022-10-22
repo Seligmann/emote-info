@@ -1,28 +1,3 @@
-/*     
-TODO
-
-- component for "user not found :pepoThink:"
-- side div containing what the website is for, and a short mention of limitations so that the user knows what channels they can search within
-- github icon
-- about page
-- total messages count
-- "Search..." -> "Username" in search bar
-- top emotes of all-time 
-- top emotes of month 
-- top chatters of all-time
-- top chatters of the month
-- better domain
-- add list for the users top emotes for the current month
-
-- appbar is a bit too tall...
-- this codebase is terrible to read even though i'm the one who wrote it... fix this ... 
-*/
-
-/*
-FIXME
-
-*/
-
 import axios from "axios";
 import {useEffect, useState} from "react";
 import * as React from "react";
@@ -31,39 +6,16 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import SearchIcon from "@mui/icons-material/Search";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import {styled} from "@mui/material/styles";
 import {CssBaseline} from "@material-ui/core";
 import {Helmet} from "react-helmet";
 import dotenv from "dotenv";
 import {Dggers} from "./components/Dggers/Dggers";
 import dankG from "./images/dankG.png";
 import github from "./images/GitHub-Mark-Light-120px-plus.png";
-import {Search, SearchIconWrapper, StyledInputBase} from "./styles";
-import {display} from "@mui/system";
+import {SearchForm} from "./form";
 
 dotenv.config();
-
-// const timestamp = new Date().getTime();
-// console.log(timestamp);
-
-// axios.post(`${URL}/dggers`, {timestamp: timestamp})
-//   .then(() => {
-//     console.log("Updated logs successfully");
-//   })
-//   .catch((error) => {
-//     console.log(`Error updating logs: ${error}`);
-//   });
-
-const Item = styled(Paper)(({theme}) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-}));
 
 const classes = {
     root: {
@@ -201,20 +153,6 @@ const App = () => {
                                         >
                                             EmoteInfo
                                         </Typography>
-                                        <Search>
-                                            <SearchIconWrapper>
-                                                <SearchIcon/>
-                                            </SearchIconWrapper>
-                                            <form onSubmit={handleUserSubmit}>
-                                                <StyledInputBase
-                                                    style={{color: "#ffffff"}}
-                                                    placeholder="Search…"
-                                                    inputProps={{"aria-label": "search"}}
-                                                    value={username}
-                                                    onChange={(e) => setUsername(e.target.value)}
-                                                />
-                                            </form>
-                                        </Search>
                                         <a
                                             title="Github"
                                             style={{
@@ -231,38 +169,45 @@ const App = () => {
                                 </AppBar>
                             </Box>
                         </Grid>
-                        <Grid item xs={12} sm={12} md={3} lg={3}>
 
-                            <div style={classes.note} id="info">
-                                <h4 id="infoTitle">Note</h4>
-                                <p id="infoParagraph">
-                                    A domain that EmoteInfo is dependent on for logs from{" "}
-                                    <a id="link" href="https://www.destiny.gg/">
-                                        destiny.gg
-                                    </a>
-                                    {" "}is unavailable for an unknown reason, so current emote usage
-                                    counts will remain unchanged indefinitely in regards to this channel.
-                                </p>
-                            </div>
-
-                            <div style={classes.info} id="info">
-                                <h4 id="infoTitle">About</h4>
-                                <p id="infoParagraph">
-                                    EmoteInfo allows anyone to see user-level emote usage for
-                                    all users on{" "}
-                                    <a id="link" href="htt  ps://www.destiny.gg/">
-                                        destiny.gg
-                                    </a>
-                                    . This site will support{" "}
-                                    <a id="link" href="https://www.twitch.tv/xqc">
-                                        twitch.tv/xqc
-                                    </a>{" "}
-                                    in the future, and possibly more channels. Simply search for a
-                                    username (e.g. <code style={{backgroundColor: "black"}}>ze1ig</code>, <code
-                                    style={{backgroundColor: "black"}}>cake</code>) to get started.
-                                </p>
-                            </div>
+                        <Grid container direction={"column"} rowSpacing={1} item xs={12} sm={12} md={3} lg={3}>
+                            <Grid item>
+                                <SearchForm/>
+                            </Grid>
+                            <Grid item>
+                                <div style={classes.note} id="info">
+                                    <h4 id="infoTitle">Note</h4>
+                                    <p id="infoParagraph">
+                                        A domain that EmoteInfo is dependent on for logs from{" "}
+                                        <a id="link" href="https://www.destiny.gg/">
+                                            destiny.gg
+                                        </a>
+                                        {" "}is unavailable for an unknown reason, so current emote usage
+                                        counts will remain unchanged indefinitely in regards to this channel.
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item>
+                                <div style={classes.info} id="info">
+                                    <h4 id="infoTitle">About</h4>
+                                    <p id="infoParagraph">
+                                        EmoteInfo allows anyone to see user-level emote usage for
+                                        all users on{" "}
+                                        <a id="link" href="htt  ps://www.destiny.gg/">
+                                            destiny.gg
+                                        </a>
+                                        . This site will support{" "}
+                                        <a id="link" href="https://www.twitch.tv/xqc">
+                                            twitch.tv/xqc
+                                        </a>{" "}
+                                        in the future, and possibly more channels. Simply search for a
+                                        username (e.g. <code style={{backgroundColor: "black"}}>ze1ig</code>, <code
+                                        style={{backgroundColor: "black"}}>cake</code>) to get started.
+                                    </p>
+                                </div>
+                            </Grid>
                         </Grid>
+
                         <Grid item xs={12} sm={12} md={9} lg={9}>
                             <div style={classes.emoteList} id="user-list-wrapper">
                                 <Dggers
