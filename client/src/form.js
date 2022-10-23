@@ -49,7 +49,7 @@ export const SearchForm = () => {
     };
     return (
         <Fragment>
-            <Paper>
+            <Paper elevation={0}>
                 <Box px={3} py={2} style={classes.form}>
                     <Typography variant="h6" align="left" margin="dense" style={{color: "#e3e3e3", fontWeight: "bold"}}>
                         Search
