@@ -1,14 +1,14 @@
-#main {
-  padding-top: 1%;
-}
+/*#main {*/
+/*  padding-top: 1%;*/
+/*}*/
 
-#logo {
-  height: 45px;
-}
+/*#logo {*/
+/*  height: 45px;*/
+/*}*/
 
-#githubLogo {
-  height: 35px;
-}
+/*#githubLogo {*/
+/*  height: 35px;*/
+/*}*/
 
 #link {
   text-decoration: none;
@@ -36,11 +36,11 @@
 
 }
 
-@media screen and (max-width: 768px) {
-  #logo {
-    height: 40px;
-  }
-  #githubLogo {
-    height: 30px;
-  }
-}
+/*@media screen and (max-width: 768px) {*/
+/*  #logo {*/
+/*    height: 40px;*/
+/*  }*/
+/*  #githubLogo {*/
+/*    height: 30px;*/
+/*  }*/
+/*}*/
