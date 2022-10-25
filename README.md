@@ -1,5 +1,5 @@
 # EmoteInfo
-EmoteInfo provides user-level emote statistics based on traffic to https://www.destiny.gg/. This site will support https://www.twitch.tv/xqc in the future, and possibly more channels.
+EmoteInfo provides user-level emote statistics based on traffic to https://www.destiny.gg/. Development for the chat at https://www.twitch.tv/xqc is currently in development.
 
 # Usage
 Simply search a valid username (e.g. `ze1ig`, `cake`) for a user from https://www.destiny.gg/ into the search bar.
