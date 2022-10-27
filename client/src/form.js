@@ -5,16 +5,16 @@ import {
     Button,
 
 } from '@material-ui/core';
-import { Stack} from '@mui/material';
-import React, { Fragment } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { styled } from '@mui/material/styles';
+import {Stack} from '@mui/material';
+import React, {Fragment, useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {styled} from '@mui/material/styles';
 import {StyledTextField} from "./styles";
 
 import * as Yup from 'yup';
 
-const Item = styled(Paper)(({ theme }) => ({
+const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
     textAlign: 'center',
     color: theme.palette.text.secondary,
@@ -29,15 +29,18 @@ const classes = {
     }
 };
 
-export const SearchForm = () => {
+export const SearchForm = (props) => {
+
     const validationSchema = Yup.object().shape({
         username: Yup.string()
             .required('Username is required'),
         channel: Yup.string()
             .required('Channel is required')
     });
+
     const {
         register,
+        control,
         handleSubmit,
         formState: { errors }
     } = useForm({
@@ -45,20 +48,21 @@ export const SearchForm = () => {
     });
 
     const onSubmit = data => {
-        console.log(JSON.stringify(data, null, 2));
+        props.setUsername(data.username);
+        props.setChannel(data.channel);
     };
+
     return (
         <Fragment>
             <Paper elevation={0}>
                 <Box px={3} py={2} style={classes.form}>
-                    <Typography variant="h6" align="left" margin="dense" style={{color: "#e3e3e3", fontWeight: "bold"}}>
+                    <Typography variant="h6" align="Left" margin="dense" style={{color: "#e3e3e3", fontWeight: "bold"}}>
                         Search
                     </Typography>
 
-                    <Stack direction="column" justifyContent={"center"} spacing={2}>
-                        <Item elevation={0} xs={12} sm={6}>
+                    <Stack container spacing={1}>
+                        <Item item xs={12} sm={6} elevation={0}>
                             <StyledTextField
-                                input
                                 required
                                 id="username"
                                 name="username"
@@ -67,13 +71,12 @@ export const SearchForm = () => {
                                 margin="dense"
                                 {...register('username')}
                                 error={!!errors.username}
-
                             />
-                            <Typography variant="inherit">
+                            <Typography variant="inherit" color="textSecondary">
                                 {errors.username?.message}
                             </Typography>
                         </Item>
-                        <Item elevation={0} xs={12} sm={6}>
+                        <Item item xs={12} sm={6} elevation={0}>
                             <StyledTextField
                                 required
                                 id="channel"
@@ -84,20 +87,19 @@ export const SearchForm = () => {
                                 {...register('channel')}
                                 error={!!errors.channel}
                             />
-                            <Typography variant="inherit">
+                            <Typography variant="inherit" color="textSecondary">
                                 {errors.channel?.message}
                             </Typography>
                         </Item>
                     </Stack>
 
-                    <Box xs={12} sm={6}>
+                    <Box mt={3}>
                         <Button
                             variant="contained"
                             color="primary"
                             onClick={handleSubmit(onSubmit)}
-                            fullWidth
                         >
-                            Submit
+                           Search
                         </Button>
                     </Box>
                 </Box>

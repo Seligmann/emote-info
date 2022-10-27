@@ -42,6 +42,7 @@ const classes = {
 
 const App = () => {
     const [username, setUsername] = useState("");
+    const [channel, setChannel] = useState("");
     const [loading, setLoading] = useState(false);
     const [users, setUsers] = useState({});
     const [searched, setSearched] = useState(false);
@@ -96,8 +97,8 @@ const App = () => {
 
     // FIXME right now we're deleting emote_info for user and replacing it with new info... is it a better idea to use UPDATE to just update the user instead?
     // Note that it isn't promised that the user used a NEW emote from last time. They may have just used the same emotes more.
-    const handleUserSubmit = async (e) => {
-        e.preventDefault();
+    const handleUserSubmit = async () => {
+        // e.preventDefault();
         setUserFound(null);
         setUsers({});
         if (username.length > 0) {
@@ -168,7 +169,7 @@ const App = () => {
 
                     <Grid container direction={"column"} rowSpacing={1} item xs={12} sm={12} md={3} lg={3}>
                         <Grid item>
-                            <SearchForm/>
+                            <SearchForm username={username} channel={channel} setUsername={setUsername} setChannel={setChannel}/>
                         </Grid>
                         <Grid item>
                             <div style={classes.note} id="info">
