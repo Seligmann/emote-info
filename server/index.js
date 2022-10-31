@@ -16,6 +16,7 @@ app.use(cors());
 // Express middleware
 app.use('/dggers', router);
 app.use('/dggers/user', router);
+app.use('/dggers/channel/user', router);
 
 const hostname = process.env.HOST;
 const port = process.env.PORT;

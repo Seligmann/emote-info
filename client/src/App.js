@@ -43,88 +43,12 @@ const classes = {
 const App = () => {
     const [username, setUsername] = useState("");
     const [channel, setChannel] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(null);
     const [users, setUsers] = useState({});
-    const [searched, setSearched] = useState(false);
+    const [searched, setSearched] = useState(null);
     const [userFound, setUserFound] = useState(null);
 
-    useEffect(() => {
-        if (searched) fetchUser();
-    }, []);
-
-    const PORT = process.env.REACT_APP_PORT;
-    const HOST = process.env.REACT_APP_HOST;
-    let URL;
-    if (HOST === "localhost") {
-        URL = `http://${HOST}:${PORT}`;
-    } else {
-        URL = `https://${HOST}`;
-    }
-
-    const fetchUsers = async () => {
-        axios
-            .get(`${URL}/dggers`)
-            .then((res) => {
-                let resEmotes = [];
-                let resUses = [];
-
-                res.data.map((row) => {
-                    resEmotes.push(row.emote);
-                    resUses.push(row.uses);
-                });
-
-                setUsers(res.data);
-            })
-            .catch((error) =>
-                console.error(`Error while getting dgger list: ${error}`)
-            );
-    };
-
-    const fetchUser = async () => {
-        await axios
-            .get(`${URL}/dggers/user?username=${username}`)
-            .then((res) => {
-                setUsers(res.data);
-                res.data.length > 0 && !loading
-                    ? setUserFound(true)
-                    : setUserFound(false);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
-    // FIXME right now we're deleting emote_info for user and replacing it with new info... is it a better idea to use UPDATE to just update the user instead?
-    // Note that it isn't promised that the user used a NEW emote from last time. They may have just used the same emotes more.
-    const handleUserSubmit = async () => {
-        // e.preventDefault();
-        setUserFound(null);
-        setUsers({});
-        if (username.length > 0) {
-            setSearched(true);
-            setLoading(true);
-            await handleUserDelete();
-            await handleUserCreate();
-            fetchUser();
-        }
-    };
-
-    const handleUserDelete = async () => {
-        await axios
-            .delete(`${URL}/dggers/user?username=${username}`)
-            .catch((error) => console.error(error.message));
-    };
-
-    const handleUserCreate = async () => {
-        await axios
-            .post(`${URL}/dggers/user`, {username: username})
-            .then((res) => {
-            })
-            .catch((error) =>
-                console.error(`Error while creating the user ${username}`)
-            );
-    };
+    // console.log(username, channel, loading, searched);
 
     return (
         <Container maxWidth={false} maxidth="lg">
@@ -169,7 +93,18 @@ const App = () => {
 
                     <Grid container direction={"column"} rowSpacing={1} item xs={12} sm={12} md={3} lg={3}>
                         <Grid item>
-                            <SearchForm username={username} channel={channel} setUsername={setUsername} setChannel={setChannel}/>
+                            <SearchForm users={users}
+                                        setUsers={setUsers}
+                                        username={username}
+                                        setUsername={setUsername}
+                                        channel={channel}
+                                        setChannel={setChannel}
+                                        loading={loading}
+                                        setLoading={setLoading}
+                                        searched={searched}
+                                        setSearched={setSearched}
+                                        userFound={userFound}
+                                        setUserFound={setUserFound}/>
                         </Grid>
                         <Grid item>
                             <div style={classes.note} id="info">
@@ -209,6 +144,8 @@ const App = () => {
                         <div style={classes.emoteList} id="user-list-wrapper">
                             <Dggers
                                 users={users}
+                                username={username}
+                                channel={channel}
                                 searched={searched}
                                 loading={loading}
                                 userFound={userFound}

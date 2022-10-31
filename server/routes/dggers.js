@@ -6,7 +6,7 @@ const router = express.Router();
 
 //router.get('/', cors(), getDggers);
 router.get('/user', cors(), getDgger);
-router.post('/user', cors(), createDgger);
+router.post('/channel/user', cors(), createDgger);
 router.post('/', cors(), updateLogs);
 // router.post('/', fillLogs);
 router.delete('/user', cors(), removeUser);

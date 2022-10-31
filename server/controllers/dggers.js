@@ -88,24 +88,29 @@ async function userLogUrls(allMonthsYears, username) {
     return userMonthYearUrls;
 }
 
-async function userEmoteUsage(username) {
-    console.log("Getting emote usage");
+async function userEmoteUsage(username, channel) {
     let updates = {};
     let emotes = [];
     let emoteImages = new Map();
-    username = username.toLowerCase();
 
     // Get current list of active emotes on dgg
     const response = await axios.get("https://cdn.destiny.gg/emotes/emotes.json");
-
     response.data.map((emoteInfo) => {
         emotes.push(emoteInfo.prefix);
         emoteImages.set(emoteInfo.prefix, emoteInfo.image[0].url);
     });
 
     // Get emote usage
-    const db = new Database("dggers.db", {verbose: console.log});
-    const messagesFromUser = db.prepare("SELECT message FROM logs WHERE username=(?)").all(username);
+    const db = new Database("logs.db", {verbose: console.log});
+    let messagesFromUser;
+
+    if (channel.toString() === "destiny")
+        messagesFromUser = db.prepare("SELECT message FROM destiny WHERE username=(?)").all(username);
+    else if (channel.toString() === "xqc")
+        messagesFromUser = db.prepare("SELECT message FROM xqc WHERE username=(?)").all(username);
+
+    // FIXME for some reason, the props finish as "ze1ig destiny true false false" ...
+    // FIXME
 
     messagesFromUser.forEach((tmp) => {
         const message = tmp["message"].split(/[, ]+/);
@@ -128,19 +133,14 @@ async function userEmoteUsage(username) {
 
 
 // Controllers
+
+// Updates local db of logs from Destiny's channel with overrustlelogs
 export const updateLogs = async (req, res) => {
     try {
         let date = new Date(req.body.timestamp);
         let year = date.getFullYear();
         let month = date.getMonth() + 1; // months are 0-indexed
         let day = date.getDate() - 1; // logs in ORL are stored the day after
-
-        console.log(`Yesterday's date: ${year}-${month}-${day}`);
-
-        /*
-        FIXME given that fetching logs is done from most recent to oldest, double check that the logic of updating
-        any misssed logs is correct
-        */
 
         if (day === 0) {
             if (month === 1) {
@@ -152,13 +152,13 @@ export const updateLogs = async (req, res) => {
         }
 
         // find date of most recent log in db
-        const db = new Database("dggers.db", {verbose: console.log});
-        const recentYear = db.prepare("SELECT MAX(year) FROM logs").get()["MAX(year)"];
+        const db = new Database("logs.db", {verbose: console.log});
+        const recentYear = db.prepare("SELECT MAX(year) FROM destiny").get()["MAX(year)"];
         const recentMonth = db
-            .prepare("SELECT MAX(month) FROM logs WHERE year=(?)")
+            .prepare("SELECT MAX(month) FROM destiny WHERE year=(?)")
             .get(recentYear)["MAX(month)"];
         const recentDay = db
-            .prepare("SELECT MAX(day) FROM logs WHERE year=(?) AND month=(?)")
+            .prepare("SELECT MAX(day) FROM destiny WHERE year=(?) AND month=(?)")
             .get(recentYear, recentMonth)["MAX(day)"];
 
         console.log(`Most recent log date: ${recentYear}-${recentMonth}-${recentDay}`);
@@ -188,7 +188,6 @@ export const updateLogs = async (req, res) => {
 
             let response;
             if (parseInt(day / 10) > 0) {
-                console.log(parseInt(day / 10));
                 if (parseInt(month / 10) > 0) {
                     response = await axios.get(
                         `https://overrustlelogs.net/Destinygg%20chatlog/${monthCheck} ${year}/${year}-${month}-${day}.txt`
@@ -213,8 +212,7 @@ export const updateLogs = async (req, res) => {
                 const tmp = message.substring(start);
                 const end = tmp.indexOf(' ');
                 const username = tmp.substring(0, end).toLowerCase();
-                console.log(`username found during filling out logs: ${username}`);
-                const stmt = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)"); // FIXME don't use db.prepare more than needed
+                const stmt = db.prepare("INSERT INTO destiny VALUES (?, ?, ?, ?, ?)"); // FIXME don't use db.prepare more than needed
                 stmt.run(year, month, day, username, message);
             });
 
@@ -234,7 +232,6 @@ export const updateLogs = async (req, res) => {
 
                 day = [1, 3, 5, 7, 8, 10, 12].includes(month) ? 31 : 30;
             }
-            console.log(`Next date: ${year}-${month}-${day}`);
         }
         return res.status(200).json({message: res.message});
     } catch (error) {
@@ -245,8 +242,7 @@ export const updateLogs = async (req, res) => {
 export const removeUser = async (req, res) => {
     try {
         let username = req.query.username.toLowerCase();
-        console.log(`Deleting user ${username}`);
-        const db = new Database("dggers.db", {verbose: console.log});
+        const db = new Database("logs.db", {verbose: console.log});
         const userInfo = db
             .prepare("DELETE FROM emote_info WHERE username= (?)")
             .run(username);
@@ -256,20 +252,10 @@ export const removeUser = async (req, res) => {
     }
 };
 
-export const getDggers = async (req, res) => {
-  try {
-    const db = new Database("dggers.db", { verbose: console.log });
-    const dggerEmotes = db.prepare("SELECT * FROM emote_info").all();
-    return res.status(200).json(dggerEmotes);
-  } catch (error) {
-    return res.status(404).json({ message: error.message });
-  }
-};
-
 export const getDgger = async (req, res) => {
     try {
         let username = req.query.username.toLowerCase();
-        const db = new Database("dggers.db", {verbose: console.log});
+        const db = new Database("logs.db", {verbose: console.log});
         const userEmoteInfo = db
             .prepare("SELECT * FROM emote_info WHERE username=(?) ORDER BY uses DESC")
             .all(username);
@@ -281,27 +267,27 @@ export const getDgger = async (req, res) => {
 
 export const createDgger = async (req, res) => {
     const username = req.body.username.toLowerCase();
-    const db = new Database("dggers.db", {verbose: console.log});
-    const emoteUsage = await userEmoteUsage(username);
+    const channel = req.body.channel.toLowerCase();
+    const emoteUsage = await userEmoteUsage(username, channel);
     return res.status(200).json(emoteUsage);
 };
 
 /*
-WARNING: Only for project initialization. This will also drop your logs table if there is a current one
+WARNING: Only for initialization of the "destiny" table. This will also drop the "destiny" table if there is a current one
 in existence.
 
-Initializes logs table from start of ORL logging to current date (the table "logs" holds entries of [year, month, day, username, message])
+Initializes "destiny" table from start of ORL logging to current date (the table "destiny" holds entries of [year, month, day, username, message])
 */
 export const fillLogs = async (req, res) => {
-    const db = new Database("dggers.db", {verbose: console.log});
-    db.prepare("DROP TABLE logs").run();
-    db.prepare("CREATE TABLE IF NOT EXISTS logs('year' INT, 'month' INT, 'day' INT, 'username' varchar, 'message' varchar)").run();
+    const db = new Database("logs.db", {verbose: console.log});
+    db.prepare("DROP TABLE destiny").run();
+    db.prepare("CREATE TABLE IF NOT EXISTS destiny('year' INT, 'month' INT, 'day' INT, 'username' varchar, 'message' varchar)").run();
 
     try {
         const monthsYears = await allMonthsYears();
         const txtUrls = await allTextUrls(monthsYears);
 
-        const insert = db.prepare("INSERT INTO logs VALUES (?, ?, ?, ?, ?)");
+        const insert = db.prepare("INSERT INTO destiny VALUES (?, ?, ?, ?, ?)");
 
         const insertMany = db.transaction((messages) => {
             messages.forEach((message) => {
