@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import router from './routes/dggers.js';
+import router from './routes/users.js';
 
 const app = express();
 dotenv.config();
@@ -14,8 +14,9 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors());
 
 // Express middleware
-app.use('/dggers', router);
-app.use('/dggers/user', router);
+app.use('/search', router);
+app.use('/search/user', router);
+app.use('/search/channel/user', router);
 
 const hostname = process.env.HOST;
 const port = process.env.PORT;
