@@ -17,7 +17,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {styled} from '@mui/material/styles';
-import {StyledTextField} from "./styles";
+import {StyledTextField} from "../styles";
 import dotenv from "dotenv";
 
 import * as Yup from 'yup';
@@ -52,7 +52,7 @@ export const SearchForm = (props) => {
     }
 
     const fetchUser = async (data) => {
-        const res = await axios.get(`${URL}/dggers/user?username=${data.username}`);
+        const res = await axios.get(`${URL}/search/user?username=${data.username}`);
         props.setUsers(res.data);
         res.data.length > 0 && !props.loading
             ? props.setUserFound(true)
@@ -74,13 +74,13 @@ export const SearchForm = (props) => {
 
     const handleUserDelete = async (data) => {
         await axios
-            .delete(`${URL}/dggers/user?username=${data.username}`)
+            .delete(`${URL}/search/user?username=${data.username}`)
             .catch((error) => console.error(error.message));
     };
 
     const handleUserCreate = async (data) => {
         await axios
-            .post(`${URL}/dggers/channel/user`, {username: data.username, channel: data.channel})
+            .post(`${URL}/search/channel/user`, {username: data.username, channel: data.channel})
             .then(() => {
             })
             .catch(() => {

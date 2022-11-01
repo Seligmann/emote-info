@@ -10,9 +10,9 @@ import Grid from "@mui/material/Grid";
 import {CssBaseline} from "@material-ui/core";
 import {Helmet} from "react-helmet";
 import dotenv from "dotenv";
-import {Users} from "./components/Users";
-import feelsOkayMan from "./images/feelsOkayMan.png";
-import github from "./images/GitHub-Mark-Light-120px-plus.png";
+import {Users} from "./Users";
+import feelsOkayMan from "../images/feelsOkayMan.png";
+import github from "../images/GitHub-Mark-Light-120px-plus.png";
 import {SearchForm} from "./form";
 
 dotenv.config();

@@ -1,7 +1,7 @@
 import React from "react";
-import prayge from "../../images/prayge.png";
-import catJam from "../../images/catJam.gif";
-import dankThink from "../../images/dankThink.png";
+import prayge from "../images/prayge.png";
+import catJam from "../images/catJam.gif";
+import dankThink from "../images/dankThink.png";
 import {
     AMAZIN, Askers,
     ATAB, Bern, Bingqilin, Blade,
@@ -13,7 +13,7 @@ import {
     OverRustle, PeepoRiot, PepeSteer, RaveDoge, Shrugstiny,
     SmashIt,
     TRUMPED, Woof, WooYeah
-} from "./animations.js";
+} from "../animations.js";
 
 // FIXME hardcoded as shit & disgusting, also put emote urls in db and keep them there
 
