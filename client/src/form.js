@@ -63,9 +63,6 @@ export const SearchForm = (props) => {
         await handleUserDelete(data);
         await handleUserCreate(data);
         await fetchUser(data);
-        props.setLoading(false);
-        if (props.users?.length > 0)
-            props.setUserFound(true);
     };
 
     const handleUserDelete = async (data) => {
