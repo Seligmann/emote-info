@@ -15,7 +15,7 @@ import {
     TRUMPED, Woof, WooYeah
 } from "./animations.js";
 
-// FIXME hardcoded as shit & disgusting, also put emote urls in db
+// FIXME hardcoded as shit & disgusting, also put emote urls in db and keep them there
 
 const sprites = [
   "MiyanoHype",
@@ -46,7 +46,8 @@ const sprites = [
   "ATAB"
 ];
 
-export const Dggers = (props) => {
+export const Users = (props) => {
+    console.log (props.users, props.users?.length, props.username, props.channel, props.searched, props.loading, props.userFound);
   if (!props.searched) {
     return (
       <div style={{ paddingTop: 10 }}>

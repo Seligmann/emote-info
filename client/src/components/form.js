@@ -1,3 +1,10 @@
+/*
+TODO:
+- refactor filenames (e.g. dgger -> user, dggers -> users)
+- refactor https req paths (e.g. /dggers -> /search (tbd...))
+
+- searching for certain usernames, such as 'destiny', is pretty slow. Indexing only helped so much.
+ */
 import {
     Paper,
     Box,
