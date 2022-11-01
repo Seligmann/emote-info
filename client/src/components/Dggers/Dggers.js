@@ -437,7 +437,7 @@ export const Dggers = (props) => {
             }}
           />
         </div>
-        <div style={{ textAlign: "center" }}>User not found</div>
+        <div style={{ textAlign: "center" }}>Nothing found</div>
       </div>
     );
   }

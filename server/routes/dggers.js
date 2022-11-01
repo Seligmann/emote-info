@@ -1,5 +1,5 @@
 import express from 'express';
-import { removeUser, createDgger, getDgger, updateLogs, fillLogs } from '../controllers/dggers.js'
+import { removeUser, createDgger, getDgger, updateLogs, fillLogs } from '../controllers/users.js'
 import cors from 'cors';
 
 const router = express.Router();
