@@ -141,6 +141,39 @@ async function userEmoteUsage(username) {
         emotes.push(emoteInfo.prefix);
         emoteImages.set(emoteInfo.prefix, emoteInfo.image[0].url);
     });
+    emoteImages.set("dggL", "https://cdn.betterttv.net/emote/60c0072df8b3f62601c3af59/1x.webp");
+    emoteImages.set("FiveHead", "https://cdn.betterttv.net/emote/625f6b703c6f14b68845b924/1x.webp");
+    emoteImages.set("CatJam", "https://cdn.betterttv.net/emote/5f1b0186cf6d2144653d2970/1x.gif");
+    emoteImages.set("catJAM", "https://cdn.betterttv.net/emote/5f1b0186cf6d2144653d2970/1x.gif");
+    emoteImages.set("catJam", "https://cdn.betterttv.net/emote/5f1b0186cf6d2144653d2970/1x.gif");
+    emoteImages.set("SMASHit", "https://cdn.betterttv.net/emote/5af84b9e766af63db43bf6b9/1x.gif");
+    emoteImages.set("WOOF", "https://cdn.betterttv.net/emote/645004e0c71ea7e681b7137d/1x.gif");
+    emoteImages.set("WooYeah", "https://cdn.betterttv.net/emote/5f0e850a19a5bd0524eca88e/1x.gif");
+    emoteImages.set("OOOO", "https://cdn.betterttv.net/emote/5e5300e6751afe7d553e4351/1x.gif");
+    emoteImages.set("peepoRiot", "https://cdn.betterttv.net/emote/5e1fc363bca2995f13fb89d7/1x.gif");
+    emoteImages.set("pepeSteer", "https://cdn.betterttv.net/emote/5f235089fe85fb4472d1b359/1x.gif");
+    emoteImages.set("RaveDoge", "https://cdn.betterttv.net/emote/5ff9399157fb500c80dae1b2/1x.gif");
+    emoteImages.set("MALARKEY", "https://cdn.betterttv.net/emote/5e545368a3253554d66242b5/1x.gif");
+    emoteImages.set("Shrugstiny", "https://cdn.betterttv.net/emote/5a2691c6fc6e584787d98534/1x.png");
+    emoteImages.set("Klappa", "https://cdn.betterttv.net/emote/5f2f871065fe924464ef9d5e/1x.png");
+    emoteImages.set("MiyanoHype", "https://cdn.betterttv.net/emote/588763bbafc2ff756c3f4c26/1x.gif");
+    emoteImages.set("Askers", "https://cdn.betterttv.net/emote/6037dc607c74605395f34302/1x.gif");
+    emoteImages.set("BERN", "https://cdn.betterttv.net/emote/5fa59de0f447d2645c1f6944/1x.png");
+    emoteImages.set("Bern", "https://cdn.betterttv.net/emote/5fa59de0f447d2645c1f6944/1x.png");
+    emoteImages.set("bern", "https://cdn.betterttv.net/emote/5fa59de0f447d2645c1f6944/1x.png");
+    emoteImages.set("BINGQILIN", "https://cdn.betterttv.net/emote/616fd766054a252a431fd92d/1x.png");
+    emoteImages.set("Clap", "https://cdn.betterttv.net/emote/55b6f480e66682f576dd94f5/1x.gif");
+    emoteImages.set("GODSTINY", "https://cdn.betterttv.net/emote/5f7f6a102bd46e4a86b10baf/1x.png");
+    emoteImages.set("OverRustle", "https://cdn.betterttv.net/emote/5873ccc57672de56f0ac9558/1x.gif");
+    emoteImages.set("LeRuse", "https://cdn.betterttv.net/emote/5f7f6cda97f70a4a9be84e87/1x.png");
+    emoteImages.set("Blade", "https://cdn.betterttv.net/emote/61e4b24c06fd6a9f5be0fa57/1x.gif");
+    emoteImages.set("AMAZIN", "https://cdn.betterttv.net/emote/600759c5df6a0665f2748c6d/1x.png");
+    emoteImages.set("Prayge", "https://cdn.betterttv.net/emote/5f3ef6123212445d6fb49f1a/1x.png");
+    emoteImages.set("GIGACHAD", "https://cdn.betterttv.net/emote/609431bc39b5010444d0cbdc/1x.gif");
+    emoteImages.set("TRIAD", "https://cdn.betterttv.net/emote/635459b117d2e9cb6117def4/1x.png");
+    emoteImages.set("WEOW", "https://cdn.betterttv.net/emote/65281174a1072c9ec8e3d20b/1x.png");
+    emoteImages.set("Chatting", "https://cdn.betterttv.net/emote/60f067db8ed8b373e4222dfc/1x.gif");
+
 
     // Get emote usage
     const db = new Database("dggers.db", {verbose: console.log});
